@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="it" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Agenda CRM Immobiliare Pro</title>
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CRM Immobiliare">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/isometric-line/180/real-estate.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .no-select {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <script type="text/javascript">
+    // Inject PWA Manifest dynamically
+    const manifestJSON = {
+      "name": "Agenda CRM Immobiliare Pro",
+      "short_name": "CRM Immobiliare",
+      "start_url": "./",
+      "display": "standalone",
+      "background_color": "#0f172a",
+      "theme_color": "#0f172a",
+      "icons": [
+        {
+          "src": "https://img.icons8.com/isometric-line/192/real-estate.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "https://img.icons8.com/isometric-line/512/real-estate.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifestJSON)], { type: 'application/json' });
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const linkElem = document.createElement('link');
+    linkElem.rel = 'manifest';
+    linkElem.href = manifestURL;
+    document.head.appendChild(linkElem);
+  </script>
+</head>
+<body class="h-full flex flex-col font-sans antialiased bg-slate-900 text-slate-100 overflow-x-hidden pb-20 md:pb-0">
+
+  <!-- TOP APP BAR -->
+  <header class="sticky top-0 z-30 bg-slate-800/90 backdrop-blur border-b border-slate-700/60 px-4 py-3 flex items-center justify-between shadow-lg">
+    <div class="flex items-center space-x-3">
+      <div class="p-2 bg-blue-600/20 text-blue-400 rounded-xl border border-blue-500/30">
+        <i data-lucide="building-2" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-lg leading-tight text-white flex items-center gap-2">
+          CRM Immobiliare <span class="text-xs font-normal px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">PWA Pro</span>
+        </h1>
+        <p class="text-xs text-slate-400">Gestione Clienti, Immobili & Scadenze</p>
+      </div>
+    </div>
+
+    <!-- Actions header -->
+    <div class="flex items-center space-x-2">
+      <button onclick="load50DemoClients()" title="Carica 50 Dati Demo" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 text-xs border border-indigo-500/40 font-medium transition flex items-center gap-1">
+        <i data-lucide="database" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">+50 Demo</span>
+      </button>
+      <button onclick="requestNotificationPermission()" title="Attiva Notifiche Promemoria" class="p-2.5 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+        <i data-lucide="bell" class="w-5 h-5"></i>
+      </button>
+      <button onclick="openExportModal()" title="Export & Backup Dati" class="p-2.5 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+        <i data-lucide="download" class="w-5 h-5"></i>
+      </button>
+      <button onclick="openClientModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm shadow-lg shadow-blue-600/30 transition">
+        <i data-lucide="plus" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Nuovo Cliente</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 space-y-6">
+
+    <!-- METRICS DASHBOARD -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400">
+          <span class="text-xs font-medium uppercase tracking-wider">Totale Clienti</span>
+          <i data-lucide="users" class="w-4 h-4 text-blue-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span id="metric-total" class="text-2xl font-bold text-white">0</span>
+          <span class="text-xs text-slate-400">Archivio</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400">
+          <span class="text-xs font-medium uppercase tracking-wider">In Corso / Trattativa</span>
+          <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span id="metric-active" class="text-2xl font-bold text-amber-400">0</span>
+          <span class="text-xs text-amber-400/80 font-medium">Attivi</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400">
+          <span class="text-xs font-medium uppercase tracking-wider">Accettati</span>
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span id="metric-won" class="text-2xl font-bold text-emerald-400">0</span>
+          <span id="metric-conversion" class="text-xs text-emerald-400 font-medium">0% conv.</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
+        <div class="flex items-center justify-between text-slate-400">
+          <span class="text-xs font-medium uppercase tracking-wider">Persi</span>
+          <i data-lucide="x-circle" class="w-4 h-4 text-rose-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span id="metric-lost" class="text-2xl font-bold text-rose-400">0</span>
+          <span class="text-xs text-slate-400">Chiusi</span>
+        </div>
+      </div>
+
+      <div class="col-span-2 md:col-span-1 bg-gradient-to-br from-indigo-900/40 to-slate-800/80 border border-indigo-500/30 p-3.5 rounded-2xl flex flex-col justify-between">
+        <div class="flex items-center justify-between text-indigo-300">
+          <span class="text-xs font-semibold uppercase tracking-wider">Promemoria Scaduti/Oggi</span>
+          <i data-lucide="calendar-heart" class="w-4 h-4 text-indigo-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline justify-between">
+          <span id="metric-reminders" class="text-2xl font-bold text-indigo-300">0</span>
+          <button onclick="switchTab('reminders')" class="text-xs text-indigo-400 hover:underline font-medium">Vedi tutti &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION TABS & SEARCH / FILTERS BAR -->
+    <section class="space-y-3">
+      <!-- Tabs header -->
+      <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2 overflow-x-auto no-scrollbar">
+        <div class="flex items-center space-x-1">
+          <button onclick="switchTab('all')" id="tab-all" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 bg-blue-600 text-white">
+            <i data-lucide="list" class="w-4 h-4"></i> Tutti i Clienti
+          </button>
+          <button onclick="switchTab('reminders')" id="tab-reminders" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+            <i data-lucide="bell-ring" class="w-4 h-4"></i> Richiami Scadenze
+            <span id="badge-reminders" class="hidden px-2 py-0.5 text-xs rounded-full bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">0</span>
+          </button>
+          <button onclick="switchTab('matching')" id="tab-matching" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+            <i data-lucide="git-compare" class="w-4 h-4"></i> Matching Incrociato
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls & Search -->
+      <div id="filter-controls" class="grid grid-cols-1 md:grid-cols-4 gap-2">
+        <div class="relative md:col-span-2">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+          <input type="text" id="search-input" oninput="renderClients()" placeholder="Cerca cliente, telefono, zona, comune..." class="w-full bg-slate-800 border border-slate-700/70 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div>
+          <select id="filter-status" onchange="renderClients()" class="w-full bg-slate-800 border border-slate-700/70 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+            <option value="ALL">Tutti gli Esiti</option>
+            <option value="In corso">In corso</option>
+            <option value="Trattativa">Trattativa</option>
+            <option value="Accettato">Accettato (Chiuso)</option>
+            <option value="Perso">Perso</option>
+          </select>
+        </div>
+
+        <div>
+          <select id="filter-role" onchange="renderClients()" class="w-full bg-slate-800 border border-slate-700/70 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+            <option value="ALL">Tutti i Ruoli</option>
+            <option value="Acquirente">Acquirente</option>
+            <option value="Venditore">Venditore</option>
+            <option value="Inquilino">Inquilino</option>
+            <option value="Locatore">Locatore (Proprietario)</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT VIEWS -->
+    
+    <!-- VIEW 1: CLIENT CARDS LIST -->
+    <section id="view-clients" class="space-y-4">
+      <div id="clients-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered client cards -->
+      </div>
+      <div id="empty-state" class="hidden text-center py-12 border-2 border-dashed border-slate-800 rounded-3xl space-y-3">
+        <i data-lucide="folder-open" class="w-12 h-12 text-slate-600 mx-auto"></i>
+        <h3 class="text-base font-semibold text-slate-300">Nessun cliente presente o trovato</h3>
+        <p class="text-xs text-slate-500 max-w-sm mx-auto">Puoi aggiungere il tuo primo cliente oppure caricare 50 schede demo di prova con un clic.</p>
+        <div class="flex justify-center gap-2 pt-2">
+          <button onclick="load50DemoClients()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Carica 50 Clienti Demo</button>
+          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold">+ Nuovo Cliente</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: REMINDERS & FOLLOW-UPS -->
+    <section id="view-reminders" class="hidden space-y-4">
+      <div class="bg-indigo-950/40 border border-indigo-500/20 p-4 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div>
+          <h2 class="font-bold text-slate-100 flex items-center gap-2">
+            <i data-lucide="bell" class="w-5 h-5 text-indigo-400"></i> Agenda Richiami & Appuntamenti
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">I clienti con data di promemoria in scadenza oggi o arretrati.</p>
+        </div>
+        <button onclick="requestNotificationPermission()" class="px-3 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 text-xs border border-indigo-500/40 font-medium transition">
+          Abilita Notifiche App
+        </button>
+      </div>
+
+      <div id="reminders-list" class="space-y-3">
+        <!-- Reminders dynamically inserted -->
+      </div>
+    </section>
+
+    <!-- VIEW 3: SMART MATCHING TOOL (Acquirenti vs Immobili) -->
+    <section id="view-matching" class="hidden space-y-4">
+      <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-2xl space-y-3">
+        <h2 class="font-bold text-slate-100 flex items-center gap-2">
+          <i data-lucide="git-compare" class="w-5 h-5 text-blue-400"></i> Incrocio Automatico Domanda / Offerta
+        </h2>
+        <p class="text-xs text-slate-400">Seleziona un immobile (Venditore/Locatore) per incrociare gli Acquirenti/Inquilini compatibili per Zona, Tipologia e Budget.</p>
+        
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Seleziona Immobile in Portafoglio:</label>
+          <select id="matching-property-select" onchange="performMatching()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
+            <option value="">-- Seleziona un Immobile in Vendita/Affitta --</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="matching-results" class="space-y-3">
+        <div class="text-center py-8 text-slate-500 text-sm">
+          Seleziona un immobile dal menu per calcolare le corrispondenze con le richieste degli acquirenti.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE BOTTOM NAVBAR -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-800/95 backdrop-blur border-t border-slate-700/60 px-2 py-1.5 flex justify-around items-center">
+    <button onclick="switchTab('all')" id="nav-mob-all" class="flex flex-col items-center p-2 text-blue-400">
+      <i data-lucide="users" class="w-5 h-5"></i>
+      <span class="text-[10px] mt-1 font-medium">Clienti</span>
+    </button>
+    <button onclick="switchTab('reminders')" id="nav-mob-reminders" class="flex flex-col items-center p-2 text-slate-400 relative">
+      <i data-lucide="bell" class="w-5 h-5"></i>
+      <span class="text-[10px] mt-1 font-medium">Scadenze</span>
+      <span id="badge-mob-reminders" class="hidden absolute top-1 right-2 w-2 h-2 rounded-full bg-rose-500"></span>
+    </button>
+    <button onclick="switchTab('matching')" id="nav-mob-matching" class="flex flex-col items-center p-2 text-slate-400">
+      <i data-lucide="git-compare" class="w-5 h-5"></i>
+      <span class="text-[10px] mt-1 font-medium">Matching</span>
+    </button>
+    <button onclick="openClientModal()" class="flex flex-col items-center p-2 text-emerald-400">
+      <i data-lucide="plus-circle" class="w-5 h-5"></i>
+      <span class="text-[10px] mt-1 font-medium">Nuovo</span>
+    </button>
+  </nav>
+
+  <!-- CLIENT FORM MODAL (ADD / EDIT) -->
+  <div id="client-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-slate-800 border border-slate-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-700/60 flex items-center justify-between bg-slate-800/80 sticky top-0 z-10">
+        <h3 id="modal-title" class="text-base font-bold text-white flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-5 h-5 text-blue-400"></i> Nuovo Cliente Immobiliare
+        </h3>
+        <button onclick="closeClientModal()" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Form) -->
+      <form id="client-form" onsubmit="saveClient(event)" class="p-6 space-y-4 overflow-y-auto flex-1 text-sm">
+        <input type="hidden" id="field-id">
+
+        <!-- SECTION 1: ANAGRAFICA CLIENTE -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider">1. Anagrafica & Contatti</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Nome e Cognome *</label>
+              <input type="text" id="field-name" required placeholder="Es. Marco Rossi" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Telefono / Cellulare *</label>
+              <input type="tel" id="field-phone" required placeholder="Es. 3391234567" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Email</label>
+              <input type="email" id="field-email" placeholder="m.rossi@email.it" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Ruolo Cliente *</label>
+              <select id="field-role" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+                <option value="Acquirente">Acquirente (Cerca da comprare)</option>
+                <option value="Venditore">Venditore (Proprietario)</option>
+                <option value="Inquilino">Inquilino (Cerca in affitto)</option>
+                <option value="Locatore">Locatore (Affitta immobile)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <hr class="border-slate-700/50">
+
+        <!-- SECTION 2: DATI IMMOBILE / RICHIESTA -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider">2. Immobile / Parametri Ricerca</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Tipologia Immobile</label>
+              <select id="field-propertyType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+                <option value="Appartamento">Appartamento</option>
+                <option value="Attico">Attico / Mansarda</option>
+                <option value="Villa">Villa / Villetta</option>
+                <option value="Locale Commerciale">Locale Commerciale / Ufficio</option>
+                <option value="Terreno">Terreno</option>
+                <option value="Box">Box / Garage</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Zona / Quartiere</label>
+              <input type="text" id="field-zone" placeholder="Es. Centro, Monza, Navigli..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Prezzo / Budget (€)</label>
+              <input type="number" id="field-price" placeholder="250000" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Superficie (m²)</label>
+              <input type="number" id="field-sqm" placeholder="95" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Vani</label>
+              <input type="text" id="field-rooms" placeholder="3 locali" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Piano</label>
+              <input type="text" id="field-floor" placeholder="2° piano" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Spese Cond. (€/mese)</label>
+              <input type="number" id="field-condoFees" placeholder="120" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Indirizzo Esatto (Per Google Maps)</label>
+            <input type="text" id="field-address" placeholder="Via Roma 15, Milano" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+          </div>
+
+          <!-- Features Checkboxes -->
+          <div class="flex flex-wrap gap-4 text-xs pt-1">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="field-hasElevator" class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0">
+              <span class="text-slate-300">Ascensore</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="field-hasBalcony" class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0">
+              <span class="text-slate-300">Balcone / Terrazzo</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="field-hasGarage" class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0">
+              <span class="text-slate-300">Garage / Posto Auto</span>
+            </label>
+          </div>
+        </div>
+
+        <hr class="border-slate-700/50">
+
+        <!-- SECTION 3: TRATTATIVA & PROMEMORIA -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider">3. Stato Trattativa & Promemoria</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Esito / Stato *</label>
+              <select id="field-status" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+                <option value="In corso">In corso (Primo contatto / Visita)</option>
+                <option value="Trattativa">Trattativa (Proposta fatta)</option>
+                <option value="Accettato">Accettato (Rogito / Chiuso positivo)</option>
+                <option value="Perso">Perso (Trattativa fallita)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Data & Ora Prossimo Richiamo</label>
+              <input type="datetime-local" id="field-reminderDate" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Note & Osservazioni Trattativa</label>
+            <textarea id="field-notes" rows="3" placeholder="Esigenze cliente, esito visite, trattabilità prezzo..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500"></textarea>
+          </div>
+
+          <!-- Photo Upload Base64 -->
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Foto / Planimetria Immobile (Opzionale)</label>
+            <input type="file" id="field-photoFile" accept="image/*" onchange="handlePhotoUpload(event)" class="w-full text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-700 file:text-slate-200 hover:file:bg-slate-600">
+            <input type="hidden" id="field-photoBase64">
+            <div id="photo-preview-container" class="mt-2 hidden">
+              <img id="photo-preview" src="" alt="Anteprima Immobile" class="w-24 h-24 object-cover rounded-xl border border-slate-700">
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="pt-4 border-t border-slate-700 flex justify-end space-x-2">
+          <button type="button" onclick="closeClientModal()" class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs font-medium">Annulla</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg shadow-blue-600/30">Salva Scheda Cliente</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- EXPORT / IMPORT BACKUP MODAL -->
+  <div id="export-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 w-full max-w-md rounded-3xl p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-white flex items-center gap-2">
+          <i data-lucide="database" class="w-5 h-5 text-emerald-400"></i> Backup & Esportazione
+        </h3>
+        <button onclick="closeExportModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <p class="text-xs text-slate-400">Esporta i tuoi clienti per report d'agenzia o salva un backup di sicurezza.</p>
+
+      <div class="space-y-2">
+        <button onclick="exportToCSV()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-200 text-xs font-medium transition">
+          <span class="flex items-center gap-2"><i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-400"></i> Esporta Foglio Excel (.CSV)</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+        </button>
+
+        <button onclick="exportToJSON()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-200 text-xs font-medium transition">
+          <span class="flex items-center gap-2"><i data-lucide="file-json" class="w-4 h-4 text-blue-400"></i> Scarica Backup Completo (.JSON)</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+        </button>
+
+        <div class="pt-2">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Ripristina Backup (.JSON):</label>
+          <input type="file" id="import-file" accept=".json" onchange="importJSONBackup(event)" class="w-full text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:bg-slate-700 file:text-slate-200">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- LOGIC & JAVASCRIPT -->
+  <script type="text/javascript">
+    const STORAGE_KEY = 'agenda_crm_immobiliare_clients_v2';
+    let clients = [];
+    let currentTab = 'all';
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[ch]);
+    }
+    function encodeArg(value) { return encodeURIComponent(String(value ?? '')); }
+    function localDateTimeValue(date = new Date()) {
+      const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      return local.toISOString().slice(0, 16);
+    }
+    function isValidClient(c) {
+      return c && typeof c === 'object' && !Array.isArray(c) &&
+        (typeof c.id === 'string' || typeof c.id === 'number') &&
+        typeof c.name === 'string' && typeof c.phone === 'string' &&
+        ['Acquirente','Venditore','Inquilino','Locatore'].includes(c.role) &&
+        ['In corso','Trattativa','Accettato','Perso'].includes(c.status) &&
+        (c.photoBase64 == null || c.photoBase64 === '' ||
+          (typeof c.photoBase64 === 'string' && /^data:image\/(png|jpeg|jpg|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(c.photoBase64)));
+    }
+
+
+    // GENERATOR FOR 50 DEMO CLIENTS IN LOMBARDY / MILAN AREA
+    function generate50DemoData() {
+      const names = [
+        'Marco Rossi', 'Luca Bianchi', 'Giulia Verdi', 'Alessandro Romano', 'Francesca Colombo', 
+        'Matteo Ricci', 'Elena Marino', 'Davide Greco', 'Chiara Bruno', 'Federico Gallo',
+        'Sara Conti', 'Andrea De Luca', 'Valentina Costa', 'Stefano Giordano', 'Silvia Mancini',
+        'Raffaele Rizzo', 'Martina Lombardi', 'Lorenzo Moretti', 'Alice Barbieri', 'Gabriele Fontanini',
+        'Roberta Santoro', 'Emanuele Marini', 'Eleonora Serra', 'Simone Farina', 'Beatrice Monti',
+        'Filippo Cattaneo', 'Giorgia Riva', 'Massimo Villa', 'Camilla Brambilla', 'Pietro Galli',
+        'Veronika Sala', 'Claudio Parisi', 'Monica Bernardi', 'Daniele Longo', 'Sonia Martinelli',
+        'Enrico Gatti', 'Serena Vitale', 'Antonio D\'Amico', 'Paola Carbone', 'Valerio Rinaldi',
+        'Tiziana Izzo', 'Fabio Pagani', 'Carla Neri', 'Gianluca Fontana', 'Sabrina Testa',
+        'Giacomo Rota', 'Elisa Borghi', 'Roberto Grassi', 'Laura Santini', 'Vincenzo Ferrara'
+      ];
+
+      const roles = ['Acquirente', 'Venditore', 'Inquilino', 'Locatore'];
+      const propertyTypes = ['Appartamento', 'Attico', 'Villa', 'Locale Commerciale', 'Box', 'Terreno'];
+      const zones = ['Centro Storico', 'Navigli', 'Parioli', 'Monza Centro', 'Isola', 'San Siro', 'Porta Nuova', 'Sempione', 'Città Studi', 'Bicocca'];
+      const statuses = ['In corso', 'Trattativa', 'Accettato', 'Perso'];
+
+      const demoList = [];
+      const now = new Date().getTime();
+
+      for (let i = 0; i < 50; i++) {
+        const role = roles[i % roles.length];
+        const status = statuses[i % statuses.length];
+        const zone = zones[i % zones.length];
+        const propertyType = propertyTypes[i % propertyTypes.length];
+        const price = (Math.floor(Math.random() * 60) + 10) * 10000; // 100,000 to 700,000
+        const sqm = Math.floor(Math.random() * 120) + 40;
+
+        // Generate reminder date: some past/today, some future, some empty
+        let reminderDate = '';
+        if (i % 3 === 0) {
+          // Today or past
+          const offsetHours = (i % 2 === 0 ? -1 : 1) * Math.floor(Math.random() * 12);
+          reminderDate = localDateTimeValue(new Date(now + offsetHours * 3600000));
+        } else if (i % 3 === 1) {
+          // Future
+          reminderDate = localDateTimeValue(new Date(now + (i * 12 * 3600000)));
+        }
+
+        demoList.push({
+          id: `demo-${i + 1}`,
+          name: names[i],
+          phone: `33${Math.floor(Math.random() * 8999999 + 1000000)}`,
+          email: `${names[i].toLowerCase().replace(/[^a-z]/g, '')}@gmail.com`,
+          role: role,
+          propertyType: propertyType,
+          zone: zone,
+          address: `Via ${['Roma', 'Dante', 'Garibaldi', 'Manzoni', 'Verdi'][i % 5]} ${i + 1}, Milano`,
+          price: price,
+          sqm: sqm,
+          rooms: `${Math.floor(Math.random() * 4) + 1} Vani`,
+          floor: `${(i % 5) + 1}° piano`,
+          condoFees: Math.floor(Math.random() * 150) + 30,
+          hasElevator: i % 2 === 0,
+          hasBalcony: i % 3 !== 0,
+          hasGarage: i % 4 === 0,
+          status: status,
+          reminderDate: reminderDate,
+          notes: `Cliente ${role} registrato per immobile in zona ${zone}. ${status === 'Trattativa' ? 'Proposta presentata e in fase di valutazione.' : 'Budget verificato.'}`,
+          photoBase64: ''
+        });
+      }
+      return demoList;
+    }
+
+    // LOAD & INIT
+    window.addEventListener('DOMContentLoaded', () => {
+      loadClientsFromStorage();
+      renderApp();
+      lucide.createIcons();
+      registerServiceWorker();
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') { closeClientModal(); closeExportModal(); }
+      });
+      document.getElementById('client-modal').addEventListener('click', event => {
+        if (event.target.id === 'client-modal') closeClientModal();
+      });
+      document.getElementById('export-modal').addEventListener('click', event => {
+        if (event.target.id === 'export-modal') closeExportModal();
+      });
+    });
+
+    function registerServiceWorker() {
+      // La registrazione da Blob URL non è supportata in modo affidabile.
+      // Per l'offline serve un file sw.js servito dalla stessa origine.
+    }
+
+    function loadClientsFromStorage() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored !== null) {
+          const parsed = JSON.parse(stored);
+          if (!Array.isArray(parsed) || !parsed.every(isValidClient)) throw new Error('Archivio non valido');
+          clients = parsed;
+        } else {
+          clients = generate50DemoData();
+          saveClientsToStorage();
+        }
+      } catch (error) {
+        console.error('Errore caricamento archivio CRM:', error);
+        clients = [];
+        alert('Impossibile leggere correttamente l’archivio locale. I dati originali non sono stati sovrascritti. Importa un backup valido.');
+      }
+    }
+
+    function saveClientsToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(clients));
+        return true;
+      } catch (error) {
+        console.error('Errore salvataggio CRM:', error);
+        alert('Salvataggio non riuscito: memoria del browser insufficiente o non disponibile. Esporta un backup e libera spazio.');
+        return false;
+      }
+    }
+
+    function load50DemoClients() {
+      if (clients.length && !confirm('Caricare i 50 clienti demo? L’operazione sostituirà l’archivio attuale. Esporta prima un backup se vuoi conservare i dati.')) return;
+      const previous = clients;
+      clients = generate50DemoData();
+      if (!saveClientsToStorage()) { clients = previous; return; }
+      renderApp();
+      alert('Caricate con successo 50 schede clienti demo.');
+    }
+
+    // TABS SYSTEM
+    function switchTab(tabName) {
+      currentTab = tabName;
+      ['all', 'reminders', 'matching'].forEach(tab => {
+        const btn = document.getElementById(`tab-${tab}`);
+        const navMob = document.getElementById(`nav-mob-${tab}`);
+        const view = document.getElementById(`view-${tab}`);
+
+        if (tab === tabName) {
+          if (btn) btn.className = "px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 bg-blue-600 text-white";
+          if (navMob) navMob.className = "flex flex-col items-center p-2 text-blue-400";
+          if (view) view.classList.remove('hidden');
+        } else {
+          if (btn) btn.className = "px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800";
+          if (navMob) navMob.className = "flex flex-col items-center p-2 text-slate-400 relative";
+          if (view) view.classList.add('hidden');
+        }
+      });
+
+      const filterControls = document.getElementById('filter-controls');
+      if (tabName === 'all') {
+        filterControls.classList.remove('hidden');
+      } else {
+        filterControls.classList.add('hidden');
+      }
+
+      if (tabName === 'matching') {
+        populateMatchingDropdown();
+      }
+
+      renderApp();
+    }
+
+    function renderApp() {
+      updateMetrics();
+      renderClients();
+      renderReminders();
+      lucide.createIcons();
+    }
+
+    function updateMetrics() {
+      const total = clients.length;
+      const active = clients.filter(c => c.status === 'In corso' || c.status === 'Trattativa').length;
+      const won = clients.filter(c => c.status === 'Accettato').length;
+      const lost = clients.filter(c => c.status === 'Perso').length;
+      
+      const now = new Date();
+      const remindersDue = clients.filter(c => {
+        if (!c.reminderDate) return false;
+        const d = new Date(c.reminderDate); return !Number.isNaN(d.getTime()) && d <= new Date(now.getTime() + 86400000);
+      }).length;
+
+      const conversionRate = total > 0 ? Math.round((won / total) * 100) : 0;
+
+      document.getElementById('metric-total').innerText = total;
+      document.getElementById('metric-active').innerText = active;
+      document.getElementById('metric-won').innerText = won;
+      document.getElementById('metric-lost').innerText = lost;
+      document.getElementById('metric-conversion').innerText = `${conversionRate}% conv.`;
+      document.getElementById('metric-reminders').innerText = remindersDue;
+
+      const badgeRem = document.getElementById('badge-reminders');
+      const badgeMobRem = document.getElementById('badge-mob-reminders');
+      if (remindersDue > 0) {
+        badgeRem.innerText = remindersDue;
+        badgeRem.classList.remove('hidden');
+        if (badgeMobRem) badgeMobRem.classList.remove('hidden');
+      } else {
+        badgeRem.classList.add('hidden');
+        if (badgeMobRem) badgeMobRem.classList.add('hidden');
+      }
+    }
+
+    function renderClients() {
+      const grid = document.getElementById('clients-grid');
+      const emptyState = document.getElementById('empty-state');
+      grid.innerHTML = '';
+
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const statusFilter = document.getElementById('filter-status').value;
+      const roleFilter = document.getElementById('filter-role').value;
+
+      const filtered = clients.filter(c => {
+        const matchesQuery = 
+          String(c.name || '').toLowerCase().includes(query) ||
+          String(c.phone || '').toLowerCase().includes(query) ||
+          (c.zone && c.zone.toLowerCase().includes(query)) ||
+          (c.address && c.address.toLowerCase().includes(query));
+
+        const matchesStatus = statusFilter === 'ALL' || c.status === statusFilter;
+        const matchesRole = roleFilter === 'ALL' || c.role === roleFilter;
+
+        return matchesQuery && matchesStatus && matchesRole;
+      });
+
+      if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      filtered.forEach(client => {
+        const card = document.createElement('div');
+        card.className = "bg-slate-800/80 border border-slate-700/70 rounded-2xl p-4 flex flex-col justify-between hover:border-slate-600 transition shadow-lg relative overflow-hidden group";
+
+        let statusBadgeClass = "bg-slate-700 text-slate-300";
+        if (client.status === 'In corso') statusBadgeClass = "bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        if (client.status === 'Trattativa') statusBadgeClass = "bg-blue-500/20 text-blue-300 border border-blue-500/30";
+        if (client.status === 'Accettato') statusBadgeClass = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        if (client.status === 'Perso') statusBadgeClass = "bg-rose-500/20 text-rose-300 border border-rose-500/30";
+
+        let roleBadgeClass = "bg-indigo-500/20 text-indigo-300";
+        if (client.role === 'Venditore') roleBadgeClass = "bg-purple-500/20 text-purple-300";
+        if (client.role === 'Locatore') roleBadgeClass = "bg-amber-500/20 text-amber-300";
+
+        const formattedPrice = client.price ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(client.price) : 'N/D';
+
+        let reminderTag = '';
+        if (client.reminderDate) {
+          const rDate = new Date(client.reminderDate);
+          const isOverdue = rDate < new Date();
+          const formattedDate = rDate.toLocaleString('it-IT', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+          reminderTag = `
+            <div class="mt-2 text-xs flex items-center gap-1.5 ${isOverdue ? 'text-rose-400 font-semibold' : 'text-indigo-300'}">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i> Richiamo: ${formattedDate}
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${roleBadgeClass}">${escapeHtml(client.role)}</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${statusBadgeClass}">${escapeHtml(client.status)}</span>
+                </div>
+                <h3 class="font-bold text-base text-white mt-1.5">${escapeHtml(client.name)}</h3>
+              </div>
+              <div class="flex items-center space-x-1">
+                <button onclick="openClientModal(decodeURIComponent('${encodeArg(client.id)}'))" title="Modifica Scheda" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700">
+                  <i data-lucide="edit-3" class="w-4 h-4"></i>
+                </button>
+                <button onclick="deleteClient(decodeURIComponent('${encodeArg(client.id)}'))" title="Elimina" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-700">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/60 rounded-xl p-3 space-y-1.5 text-xs text-slate-300 border border-slate-700/40">
+              <div class="flex justify-between font-medium text-slate-100">
+                <span>${escapeHtml(client.propertyType || 'Immobile')} ${client.sqm ? `(${client.sqm} m²)` : ''}</span>
+                <span class="text-emerald-400 font-bold">${formattedPrice}</span>
+              </div>
+              <div class="text-slate-400 flex items-center gap-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i> ${escapeHtml(client.zone || 'Zona non specificata')} ${client.address ? `- ${escapeHtml(client.address)}` : ''}
+              </div>
+              ${client.rooms ? `<div class="text-slate-400">Vani: ${escapeHtml(client.rooms)} ${client.floor ? `| ${escapeHtml(client.floor)}` : ''}</div>` : ''}
+              
+              <div class="flex items-center gap-3 pt-1 text-[11px] text-slate-400">
+                ${client.hasElevator ? '<span class="flex items-center gap-1"><i data-lucide="arrow-up-down" class="w-3 h-3 text-blue-400"></i> Ascensore</span>' : ''}
+                ${client.hasBalcony ? '<span class="flex items-center gap-1"><i data-lucide="sun" class="w-3 h-3 text-amber-400"></i> Balcone</span>' : ''}
+                ${client.hasGarage ? '<span class="flex items-center gap-1"><i data-lucide="car" class="w-3 h-3 text-emerald-400"></i> Box</span>' : ''}
+              </div>
+            </div>
+
+            ${client.photoBase64 ? `
+              <div class="mt-2">
+                <img src="${client.photoBase64}" alt="Immobile" class="w-full h-28 object-cover rounded-xl border border-slate-700">
+              </div>
+            ` : ''}
+
+            ${client.notes ? `<p class="text-xs text-slate-400 italic line-clamp-2">"${escapeHtml(client.notes)}"</p>` : ''}
+            
+            ${reminderTag}
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-4 gap-1">
+            <a href="tel:${escapeHtml(client.phone)}" title="Chiama Cliente" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-emerald-600/20 text-slate-300 hover:text-emerald-400 transition">
+              <i data-lucide="phone" class="w-4 h-4"></i>
+              <span class="text-[10px] mt-0.5">Chiama</span>
+            </a>
+            
+            <button onclick="sendWhatsApp(decodeURIComponent('${encodeArg(client.phone)}'), decodeURIComponent('${encodeArg(client.name)}'), decodeURIComponent('${encodeArg(client.zone)}'), decodeURIComponent('${encodeArg(client.propertyType)}'))" title="Invia WhatsApp" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-emerald-600/20 text-slate-300 hover:text-emerald-400 transition">
+              <i data-lucide="message-square" class="w-4 h-4"></i>
+              <span class="text-[10px] mt-0.5">WhatsApp</span>
+            </button>
+
+            <a href="mailto:${escapeHtml(client.email || '')}" title="Invia Email" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-blue-600/20 text-slate-300 hover:text-blue-400 transition ${!client.email ? 'opacity-40 pointer-events-none' : ''}">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              <span class="text-[10px] mt-0.5">Email</span>
+            </a>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((client.address || '') + ' ' + (client.zone || ''))}" target="_blank" rel="noopener noreferrer" title="Apri Mappa" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-indigo-600/20 text-slate-300 hover:text-indigo-400 transition ${!client.address && !client.zone ? 'opacity-40 pointer-events-none' : ''}">
+              <i data-lucide="navigation" class="w-4 h-4"></i>
+              <span class="text-[10px] mt-0.5">Mappa</span>
+            </a>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    function renderReminders() {
+      const container = document.getElementById('reminders-list');
+      container.innerHTML = '';
+
+      const clientsWithReminders = clients.filter(c => c.reminderDate && !Number.isNaN(new Date(c.reminderDate).getTime())).sort((a,b) => new Date(a.reminderDate) - new Date(b.reminderDate));
+
+      if (clientsWithReminders.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 text-slate-500 text-sm border-2 border-dashed border-slate-800 rounded-2xl">
+            Nessun promemoria o richiamo programmato.
+          </div>
+        `;
+        return;
+      }
+
+      clientsWithReminders.forEach(client => {
+        const rDate = new Date(client.reminderDate);
+        const isOverdue = rDate < new Date();
+        const formattedDate = rDate.toLocaleString('it-IT', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+        const item = document.createElement('div');
+        item.className = `p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${isOverdue ? 'bg-rose-950/20 border-rose-500/40' : 'bg-slate-800/70 border-slate-700/60'}`;
+
+        item.innerHTML = `
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full ${isOverdue ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-indigo-500/20 text-indigo-300'}">
+                ${isOverdue ? 'SCADUTO / DA RICHIAMARE' : 'PROGRAMMATO'}
+              </span>
+              <span class="text-xs font-semibold text-slate-300">${formattedDate}</span>
+            </div>
+            <h4 class="font-bold text-white text-base">${escapeHtml(client.name)} <span class="text-xs font-normal text-slate-400">(${escapeHtml(client.role)} - ${escapeHtml(client.phone)})</span></h4>
+            <p class="text-xs text-slate-300">${escapeHtml(client.propertyType)} a ${escapeHtml(client.zone || 'N/D')} - ${escapeHtml(client.notes || 'Nessuna nota inserita')}</p>
+          </div>
+
+          <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+            <button onclick="sendWhatsApp(decodeURIComponent('${encodeArg(client.phone)}'), decodeURIComponent('${encodeArg(client.name)}'), decodeURIComponent('${encodeArg(client.zone)}'), decodeURIComponent('${encodeArg(client.propertyType)}'))" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-medium border border-emerald-500/30 flex items-center gap-1">
+              <i data-lucide="message-square" class="w-3.5 h-3.5"></i> WhatsApp
+            </button>
+            <a href="tel:${escapeHtml(client.phone)}" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-1">
+              <i data-lucide="phone" class="w-3.5 h-3.5"></i> Chiama Ora
+            </a>
+          </div>
+        `;
+
+        container.appendChild(item);
+      });
+    }
+
+    function populateMatchingDropdown() {
+      const select = document.getElementById('matching-property-select');
+      select.innerHTML = '<option value="">-- Seleziona un Immobile in Portafoglio --</option>';
+
+      const sellers = clients.filter(c => c.role === 'Venditore' || c.role === 'Locatore');
+      sellers.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.innerText = `${s.name} - ${s.propertyType} in ${s.zone || 'Zona N/D'} (€ ${s.price ? s.price.toLocaleString('it-IT') : 'N/D'})`;
+        select.appendChild(opt);
+      });
+    }
+
+    function performMatching() {
+      const selectedId = document.getElementById('matching-property-select').value;
+      const resultsContainer = document.getElementById('matching-results');
+      resultsContainer.innerHTML = '';
+
+      if (!selectedId) {
+        resultsContainer.innerHTML = '<div class="text-center py-6 text-slate-500 text-sm">Seleziona un immobile per calcolare i match.</div>';
+        return;
+      }
+
+      const property = clients.find(c => c.id === selectedId);
+      if (!property) return;
+
+      const buyers = clients.filter(c => c.role === 'Acquirente' || c.role === 'Inquilino');
+
+      const matches = buyers.map(buyer => {
+        let score = 0;
+        let reasons = [];
+
+        if (buyer.propertyType === property.propertyType) {
+          score += 40;
+          reasons.push(`Tipologia coincidente (${escapeHtml(property.propertyType)})`);
+        }
+        if (buyer.zone && property.zone && buyer.zone.toLowerCase().includes(property.zone.toLowerCase())) {
+          score += 40;
+          reasons.push(`Stessa Zona (${escapeHtml(property.zone)})`);
+        }
+        if (buyer.price && property.price && buyer.price >= property.price) {
+          score += 20;
+          reasons.push(`Budget adeguato (€ ${buyer.price.toLocaleString('it-IT')} >= € ${property.price.toLocaleString('it-IT')})`);
+        }
+
+        return { buyer, score, reasons };
+      }).filter(m => m.score > 0).sort((a,b) => b.score - a.score);
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="text-center py-8 text-slate-400 bg-slate-800/40 rounded-2xl border border-slate-700/50">
+            Nessun acquirente attualmente in archivio corrisponde ai parametri di questo immobile.
+          </div>
+        `;
+        return;
+      }
+
+      matches.forEach(m => {
+        const item = document.createElement('div');
+        item.className = "bg-slate-800/80 border border-slate-700/70 p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3";
+
+        item.innerHTML = `
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                ${m.score}% Compatibilità
+              </span>
+              <span class="text-xs font-bold text-white">${escapeHtml(m.buyer.name)}</span>
+            </div>
+            <div class="text-xs text-slate-300">
+              Cerca ${escapeHtml(m.buyer.propertyType)} in ${escapeHtml(m.buyer.zone || 'Zona N/D')} - Budget: € ${m.buyer.price ? m.buyer.price.toLocaleString('it-IT') : 'N/D'}
+            </div>
+            <div class="text-[11px] text-slate-400 flex flex-wrap gap-2 pt-0.5">
+              ${m.reasons.map(r => `<span class="bg-slate-700 px-2 py-0.5 rounded-md">✓ ${escapeHtml(r)}</span>`).join('')}
+            </div>
+          </div>
+
+          <button onclick="sendWhatsApp(decodeURIComponent('${encodeArg(m.buyer.phone)}'), decodeURIComponent('${encodeArg(m.buyer.name)}'), decodeURIComponent('${encodeArg(property.zone)}'), decodeURIComponent('${encodeArg(property.propertyType)}'))" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium flex items-center gap-1.5 shadow-lg shadow-emerald-600/20">
+            <i data-lucide="message-square" class="w-4 h-4"></i> Proponi Immobile
+          </button>
+        `;
+
+        resultsContainer.appendChild(item);
+      });
+
+      lucide.createIcons();
+    }
+
+    function sendWhatsApp(phone, name, zone, propType) {
+      if (!phone) return;
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      const formattedPhone = /^(39|40)/.test(cleanPhone) ? cleanPhone : (cleanPhone.length === 10 ? `39${cleanPhone}` : cleanPhone);
+      
+      let msg = `Buongiorno ${name}, sono il suo agente immobiliare. `;
+      if (zone && propType) {
+        msg += `Ho una novità immobiliare relativa ad un ${propType} in zona ${zone} che potrebbe interessarle molto! Quando possiamo sentirci?`;
+      } else {
+        msg += `Le scrivo in merito alle sue esigenze immobiliari. Ci sono novità interessanti!`;
+      }
+
+      window.open(`https://wa.me/${formattedPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function openClientModal(id = null) {
+      const modal = document.getElementById('client-modal');
+      const form = document.getElementById('client-form');
+      form.reset();
+      document.getElementById('photo-preview-container').classList.add('hidden');
+      document.getElementById('field-photoBase64').value = '';
+
+      if (id) {
+        const c = clients.find(item => item.id === id);
+        if (c) {
+          document.getElementById('modal-title').innerText = "Modifica Scheda Cliente";
+          document.getElementById('field-id').value = c.id;
+          document.getElementById('field-name').value = c.name || '';
+          document.getElementById('field-phone').value = c.phone || '';
+          document.getElementById('field-email').value = c.email || '';
+          document.getElementById('field-role').value = c.role || 'Acquirente';
+          document.getElementById('field-propertyType').value = c.propertyType || 'Appartamento';
+          document.getElementById('field-zone').value = c.zone || '';
+          document.getElementById('field-price').value = c.price || '';
+          document.getElementById('field-sqm').value = c.sqm || '';
+          document.getElementById('field-rooms').value = c.rooms || '';
+          document.getElementById('field-floor').value = c.floor || '';
+          document.getElementById('field-condoFees').value = c.condoFees || '';
+          document.getElementById('field-address').value = c.address || '';
+          document.getElementById('field-hasElevator').checked = !!c.hasElevator;
+          document.getElementById('field-hasBalcony').checked = !!c.hasBalcony;
+          document.getElementById('field-hasGarage').checked = !!c.hasGarage;
+          document.getElementById('field-status').value = c.status || 'In corso';
+          document.getElementById('field-reminderDate').value = c.reminderDate || '';
+          document.getElementById('field-notes').value = c.notes || '';
+          
+          if (c.photoBase64) {
+            document.getElementById('field-photoBase64').value = c.photoBase64;
+            document.getElementById('photo-preview').src = c.photoBase64;
+            document.getElementById('photo-preview-container').classList.remove('hidden');
+          }
+        }
+      } else {
+        document.getElementById('modal-title').innerText = "Nuovo Cliente Immobiliare";
+        document.getElementById('field-id').value = '';
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeClientModal() {
+      document.getElementById('client-modal').classList.add('hidden');
+    }
+
+    function handlePhotoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) { alert('Seleziona un file immagine valido.'); e.target.value = ''; return; }
+      if (file.size > 5 * 1024 * 1024) { alert('Immagine troppo grande. Dimensione massima: 5 MB.'); e.target.value = ''; return; }
+      const reader = new FileReader();
+      reader.onerror = () => alert('Impossibile leggere il file immagine.');
+      reader.onload = evt => {
+        const base64 = evt.target.result;
+        document.getElementById('field-photoBase64').value = base64;
+        document.getElementById('photo-preview').src = base64;
+        document.getElementById('photo-preview-container').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveClient(e) {
+      e.preventDefault();
+      const id = document.getElementById('field-id').value;
+      const name = document.getElementById('field-name').value.trim();
+      const phone = document.getElementById('field-phone').value.trim();
+      const priceRaw = document.getElementById('field-price').value;
+      const sqmRaw = document.getElementById('field-sqm').value;
+      const feesRaw = document.getElementById('field-condoFees').value;
+      if (!name || !phone) { alert('Inserisci nome e telefono.'); return; }
+      if ([priceRaw, sqmRaw, feesRaw].some(v => v !== '' && (!Number.isFinite(Number(v)) || Number(v) < 0))) {
+        alert('Prezzo, superficie e spese condominiali devono essere numeri validi e non negativi.'); return;
+      }
+
+      const clientData = {
+        id: id || (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `client-${Date.now()}-${Math.random().toString(36).slice(2,8)}`),
+        name, phone,
+        email: document.getElementById('field-email').value.trim(),
+        role: document.getElementById('field-role').value,
+        propertyType: document.getElementById('field-propertyType').value,
+        zone: document.getElementById('field-zone').value.trim(),
+        price: priceRaw === '' ? 0 : Number(priceRaw),
+        sqm: sqmRaw === '' ? 0 : Number(sqmRaw),
+        rooms: document.getElementById('field-rooms').value.trim(),
+        floor: document.getElementById('field-floor').value.trim(),
+        condoFees: feesRaw === '' ? 0 : Number(feesRaw),
+        address: document.getElementById('field-address').value.trim(),
+        hasElevator: document.getElementById('field-hasElevator').checked,
+        hasBalcony: document.getElementById('field-hasBalcony').checked,
+        hasGarage: document.getElementById('field-hasGarage').checked,
+        status: document.getElementById('field-status').value,
+        reminderDate: document.getElementById('field-reminderDate').value,
+        notes: document.getElementById('field-notes').value.trim(),
+        photoBase64: document.getElementById('field-photoBase64').value
+      };
+
+      const previous = clients;
+      if (id) {
+        const index = clients.findIndex(c => c.id === id);
+        if (index === -1) { alert('Scheda non trovata: aggiorna l’archivio e riprova.'); return; }
+        clients = [...clients];
+        clients[index] = clientData;
+      } else {
+        clients = [clientData, ...clients];
+      }
+
+      if (!saveClientsToStorage()) { clients = previous; return; }
+      closeClientModal();
+      renderApp();
+    }
+
+    function deleteClient(id) {
+      const client = clients.find(c => c.id === id);
+      if (!client) { alert('Cliente non trovato.'); return; }
+      if (!confirm(`Eliminare definitivamente la scheda di ${client.name}?`)) return;
+      const previous = clients;
+      clients = clients.filter(c => c.id !== id);
+      if (!saveClientsToStorage()) { clients = previous; return; }
+      renderApp();
+    }
+
+    async function requestNotificationPermission() {
+      if (!('Notification' in window)) { alert('Questo browser non supporta le notifiche.'); return; }
+      if (!window.isSecureContext) { alert('Le notifiche richiedono HTTPS o localhost.'); return; }
+      try {
+        const permission = Notification.permission === 'default'
+          ? await Notification.requestPermission() : Notification.permission;
+        if (permission === 'granted') {
+          new Notification('Agenda Immobiliare Pro', {
+            body: 'Notifiche attivate. I promemoria vengono mostrati nell’agenda.',
+            icon: 'https://img.icons8.com/isometric-line/192/real-estate.png'
+          });
+        } else if (permission === 'denied') {
+          alert('Notifiche bloccate. Puoi abilitarle dalle impostazioni del browser.');
+        } else {
+          alert('Permesso notifiche non concesso.');
+        }
+      } catch (error) {
+        console.error('Errore notifiche:', error);
+        alert('Non è stato possibile attivare le notifiche.');
+      }
+    }
+
+    function openExportModal() {
+      document.getElementById('export-modal').classList.remove('hidden');
+    }
+
+    function closeExportModal() {
+      document.getElementById('export-modal').classList.add('hidden');
+    }
+
+    function exportToCSV() {
+      if (clients.length === 0) return alert('Nessun dato da esportare.');
+      const headers = ['Nome','Telefono','Email','Ruolo','Tipologia','Zona','Indirizzo','Prezzo','Mq','Esito','Promemoria','Note'];
+      const cell = value => `"${String(value ?? '').replace(/"/g, '""')}"`;
+      const rows = clients.map(c => [
+        c.name,c.phone,c.email,c.role,c.propertyType,c.zone,c.address,c.price || 0,c.sqm || 0,c.status,c.reminderDate,c.notes
+      ].map(cell));
+      const csv = '\uFEFF' + [headers.map(cell).join(';'), ...rows.map(row => row.join(';'))].join('\r\n');
+      downloadBlob(csv, `Clienti_CRM_Immobiliare_${localDateTimeValue().slice(0,10)}.csv`, 'text/csv;charset=utf-8');
+    }
+
+    function downloadBlob(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function exportToJSON() {
+      downloadBlob(JSON.stringify(clients, null, 2),
+        `Backup_Agenda_Immobiliare_${localDateTimeValue().slice(0,10)}.json`,
+        'application/json;charset=utf-8');
+    }
+
+    function importJSONBackup(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      if (file.size > 20 * 1024 * 1024) { alert('Backup troppo grande (massimo 20 MB).'); e.target.value = ''; return; }
+      const reader = new FileReader();
+      reader.onerror = () => alert('Impossibile leggere il file selezionato.');
+      reader.onload = function(evt) {
+        try {
+          const importedData = JSON.parse(evt.target.result);
+          if (!Array.isArray(importedData) || !importedData.every(isValidClient)) throw new Error('Formato backup non valido');
+          if (!confirm(`Il backup contiene ${importedData.length} schede. Sostituire l’archivio attuale? Esporta prima una copia se vuoi conservarlo.`)) return;
+          const previous = clients;
+          clients = importedData;
+          if (!saveClientsToStorage()) { clients = previous; return; }
+          renderApp();
+          closeExportModal();
+          alert('Backup ripristinato con successo.');
+        } catch (err) {
+          console.error('Importazione backup:', err);
+          alert('Backup non valido o danneggiato. L’archivio attuale è rimasto invariato.');
+        } finally { e.target.value = ''; }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
