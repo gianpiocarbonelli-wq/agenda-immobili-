@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="it" class="h-full bg-slate-900 text-slate-100">
+<html lang="it" class="h-full bg-[#eef6f5] text-[#0f3b47]">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Agenda CRM Immobiliare Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ImmoPulse - Agenda CRM Immobiliare</title>
 
   <!-- PWA Meta Tags -->
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#0e4d5f">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CRM Immobiliare">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ImmoPulse">
   <link rel="apple-touch-icon" href="https://img.icons8.com/isometric-line/180/real-estate.png">
 
   <!-- Tailwind CSS CDN -->
@@ -35,12 +36,12 @@
   <script type="text/javascript">
     // Inject PWA Manifest dynamically
     const manifestJSON = {
-      "name": "Agenda CRM Immobiliare Pro",
-      "short_name": "CRM Immobiliare",
+      "name": "ImmoPulse - CRM Immobiliare",
+      "short_name": "ImmoPulse",
       "start_url": "./",
       "display": "standalone",
-      "background_color": "#0f172a",
-      "theme_color": "#0f172a",
+      "background_color": "#eef6f5",
+      "theme_color": "#0e4d5f",
       "icons": [
         {
           "src": "https://img.icons8.com/isometric-line/192/real-estate.png",
@@ -62,35 +63,47 @@
     document.head.appendChild(linkElem);
   </script>
 </head>
-<body class="h-full flex flex-col font-sans antialiased bg-slate-900 text-slate-100 overflow-x-hidden pb-20 md:pb-0">
+<body class="h-full flex flex-col font-sans antialiased bg-gradient-to-br from-[#eef7f6] via-[#f5faf9] to-[#e4f2f0] text-[#0f3b47] overflow-x-hidden pb-20 md:pb-0">
 
   <!-- TOP APP BAR -->
-  <header class="sticky top-0 z-30 bg-slate-800/90 backdrop-blur border-b border-slate-700/60 px-4 py-3 flex items-center justify-between shadow-lg">
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-[#cbe2de] px-4 py-3 flex items-center justify-between shadow-sm">
     <div class="flex items-center space-x-3">
-      <div class="p-2 bg-blue-600/20 text-blue-400 rounded-xl border border-blue-500/30">
-        <i data-lucide="building-2" class="w-6 h-6"></i>
+      <div class="p-2 bg-gradient-to-br from-[#0e4d5f]/10 to-[#2eb086]/15 rounded-xl border border-[#2eb086]/30 shrink-0">
+        <svg class="w-7 h-7" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="immoGrad" x1="6" y1="10" x2="58" y2="54" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0e4d5f"/>
+              <stop offset="55%" stop-color="#1ca7b8"/>
+              <stop offset="100%" stop-color="#2eb086"/>
+            </linearGradient>
+          </defs>
+          <path d="M8 28L32 10L56 28" stroke="url(#immoGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 24V44M49 24V44" stroke="url(#immoGrad)" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M4 38H18L24 23L31 52L38 30L43 38H60" stroke="url(#immoGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
       <div>
-        <h1 class="font-bold text-lg leading-tight text-white flex items-center gap-2">
-          CRM Immobiliare <span class="text-xs font-normal px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">PWA Pro</span>
+        <h1 class="font-bold text-lg leading-tight flex items-center gap-2">
+          <span><span class="text-[#0e4d5f]">Immo</span><span class="text-[#2eb086]">Pulse</span></span>
+          <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-[#2eb086]/15 text-[#0e4d5f] border border-[#2eb086]/30">CRM Pro</span>
         </h1>
-        <p class="text-xs text-slate-400">Gestione Clienti, Immobili & Scadenze</p>
+        <p class="text-xs text-[#4a707a] hidden sm:block">Il cuore pulsante del tuo business immobiliare</p>
       </div>
     </div>
 
     <!-- Actions header -->
     <div class="flex items-center space-x-2">
-      <button onclick="load50DemoClients()" title="Carica 50 Dati Demo" class="px-2.5 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 text-xs border border-indigo-500/40 font-medium transition flex items-center gap-1">
+      <button type="button" onclick="load50DemoClients()" title="Carica 50 Dati Demo" class="px-2.5 py-1.5 rounded-xl bg-[#0e4d5f]/10 hover:bg-[#0e4d5f]/20 text-[#0e4d5f] text-xs border border-[#0e4d5f]/25 font-medium transition flex items-center gap-1">
         <i data-lucide="database" class="w-4 h-4"></i>
         <span class="hidden sm:inline">+50 Demo</span>
       </button>
-      <button onclick="requestNotificationPermission()" title="Attiva Notifiche Promemoria" class="p-2.5 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+      <button type="button" onclick="requestNotificationPermission()" title="Attiva Notifiche Promemoria" aria-label="Attiva Notifiche Promemoria" class="p-2.5 rounded-xl bg-[#f0f7f6] hover:bg-[#dff0ed] text-[#0e4d5f] border border-[#cbe2de] transition">
         <i data-lucide="bell" class="w-5 h-5"></i>
       </button>
-      <button onclick="openExportModal()" title="Export & Backup Dati" class="p-2.5 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+      <button type="button" onclick="openExportModal()" title="Export & Backup Dati" aria-label="Export e Backup Dati" class="p-2.5 rounded-xl bg-[#f0f7f6] hover:bg-[#dff0ed] text-[#0e4d5f] border border-[#cbe2de] transition">
         <i data-lucide="download" class="w-5 h-5"></i>
       </button>
-      <button onclick="openClientModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm shadow-lg shadow-blue-600/30 transition">
+      <button type="button" onclick="openClientModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#0e4d5f] to-[#2eb086] hover:opacity-95 text-white font-medium text-sm shadow-lg shadow-[#2eb086]/25 transition">
         <i data-lucide="plus" class="w-4 h-4"></i>
         <span class="hidden sm:inline">Nuovo Cliente</span>
       </button>
@@ -102,58 +115,58 @@
 
     <!-- METRICS DASHBOARD -->
     <section class="grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
-        <div class="flex items-center justify-between text-slate-400">
+      <div class="bg-white border border-[#cbe2de] p-3.5 rounded-2xl flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-[#4a707a]">
           <span class="text-xs font-medium uppercase tracking-wider">Totale Clienti</span>
-          <i data-lucide="users" class="w-4 h-4 text-blue-400"></i>
+          <i data-lucide="users" class="w-4 h-4 text-[#0e4d5f]"></i>
         </div>
         <div class="mt-2 flex items-baseline justify-between">
-          <span id="metric-total" class="text-2xl font-bold text-white">0</span>
-          <span class="text-xs text-slate-400">Archivio</span>
+          <span id="metric-total" class="text-2xl font-bold text-[#0e4d5f]">0</span>
+          <span class="text-xs text-[#5a808a]">Archivio</span>
         </div>
       </div>
 
-      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
-        <div class="flex items-center justify-between text-slate-400">
+      <div class="bg-white border border-[#cbe2de] p-3.5 rounded-2xl flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-[#4a707a]">
           <span class="text-xs font-medium uppercase tracking-wider">In Corso / Trattativa</span>
-          <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+          <i data-lucide="clock" class="w-4 h-4 text-amber-500"></i>
         </div>
         <div class="mt-2 flex items-baseline justify-between">
-          <span id="metric-active" class="text-2xl font-bold text-amber-400">0</span>
-          <span class="text-xs text-amber-400/80 font-medium">Attivi</span>
+          <span id="metric-active" class="text-2xl font-bold text-amber-600">0</span>
+          <span class="text-xs text-amber-600/80 font-medium">Attivi</span>
         </div>
       </div>
 
-      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
-        <div class="flex items-center justify-between text-slate-400">
+      <div class="bg-white border border-[#cbe2de] p-3.5 rounded-2xl flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-[#4a707a]">
           <span class="text-xs font-medium uppercase tracking-wider">Accettati</span>
-          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+          <i data-lucide="check-circle" class="w-4 h-4 text-[#2eb086]"></i>
         </div>
         <div class="mt-2 flex items-baseline justify-between">
-          <span id="metric-won" class="text-2xl font-bold text-emerald-400">0</span>
-          <span id="metric-conversion" class="text-xs text-emerald-400 font-medium">0% conv.</span>
+          <span id="metric-won" class="text-2xl font-bold text-[#2eb086]">0</span>
+          <span id="metric-conversion" class="text-xs text-[#2eb086] font-medium">0% conv.</span>
         </div>
       </div>
 
-      <div class="bg-slate-800/60 border border-slate-700/50 p-3.5 rounded-2xl flex flex-col justify-between">
-        <div class="flex items-center justify-between text-slate-400">
+      <div class="bg-white border border-[#cbe2de] p-3.5 rounded-2xl flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-[#4a707a]">
           <span class="text-xs font-medium uppercase tracking-wider">Persi</span>
-          <i data-lucide="x-circle" class="w-4 h-4 text-rose-400"></i>
+          <i data-lucide="x-circle" class="w-4 h-4 text-rose-500"></i>
         </div>
         <div class="mt-2 flex items-baseline justify-between">
-          <span id="metric-lost" class="text-2xl font-bold text-rose-400">0</span>
-          <span class="text-xs text-slate-400">Chiusi</span>
+          <span id="metric-lost" class="text-2xl font-bold text-rose-600">0</span>
+          <span class="text-xs text-[#5a808a]">Chiusi</span>
         </div>
       </div>
 
-      <div class="col-span-2 md:col-span-1 bg-gradient-to-br from-indigo-900/40 to-slate-800/80 border border-indigo-500/30 p-3.5 rounded-2xl flex flex-col justify-between">
-        <div class="flex items-center justify-between text-indigo-300">
+      <div class="col-span-2 md:col-span-1 bg-gradient-to-br from-[#0e4d5f] to-[#1a7a78] border border-[#0e4d5f] p-3.5 rounded-2xl flex flex-col justify-between shadow-md text-white">
+        <div class="flex items-center justify-between text-[#cbeee4]">
           <span class="text-xs font-semibold uppercase tracking-wider">Promemoria Scaduti/Oggi</span>
-          <i data-lucide="calendar-heart" class="w-4 h-4 text-indigo-400"></i>
+          <i data-lucide="calendar-heart" class="w-4 h-4 text-[#67e8f9]"></i>
         </div>
         <div class="mt-2 flex items-baseline justify-between">
-          <span id="metric-reminders" class="text-2xl font-bold text-indigo-300">0</span>
-          <button onclick="switchTab('reminders')" class="text-xs text-indigo-400 hover:underline font-medium">Vedi tutti &rarr;</button>
+          <span id="metric-reminders" class="text-2xl font-bold text-white">0</span>
+          <button type="button" onclick="switchTab('reminders')" class="text-xs text-[#7df9ff] hover:underline font-medium">Vedi tutti &rarr;</button>
         </div>
       </div>
     </section>
@@ -161,78 +174,98 @@
     <!-- NAVIGATION TABS & SEARCH / FILTERS BAR -->
     <section class="space-y-3">
       <!-- Tabs header -->
-      <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2 overflow-x-auto no-scrollbar">
+      <div class="flex items-center justify-between gap-2 border-b border-[#cbe2de] pb-2 overflow-x-auto no-scrollbar">
         <div class="flex items-center space-x-1">
-          <button onclick="switchTab('all')" id="tab-all" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 bg-blue-600 text-white">
+          <button type="button" onclick="switchTab('all')" id="tab-all" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 bg-[#0e4d5f] text-white shadow-sm whitespace-nowrap">
             <i data-lucide="list" class="w-4 h-4"></i> Tutti i Clienti
           </button>
-          <button onclick="switchTab('reminders')" id="tab-reminders" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+          <button type="button" onclick="switchTab('reminders')" id="tab-reminders" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-[#4a707a] hover:text-[#0e4d5f] hover:bg-white whitespace-nowrap">
             <i data-lucide="bell-ring" class="w-4 h-4"></i> Richiami Scadenze
-            <span id="badge-reminders" class="hidden px-2 py-0.5 text-xs rounded-full bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">0</span>
+            <span id="badge-reminders" class="hidden px-2 py-0.5 text-xs rounded-full bg-rose-500 text-white font-bold">0</span>
           </button>
-          <button onclick="switchTab('matching')" id="tab-matching" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+          <button type="button" onclick="switchTab('matching')" id="tab-matching" class="px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-[#4a707a] hover:text-[#0e4d5f] hover:bg-white whitespace-nowrap">
             <i data-lucide="git-compare" class="w-4 h-4"></i> Matching Incrociato
           </button>
         </div>
       </div>
 
       <!-- Controls & Search -->
-      <div id="filter-controls" class="grid grid-cols-1 md:grid-cols-4 gap-2">
-        <div class="relative md:col-span-2">
-          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-          <input type="text" id="search-input" oninput="renderClients()" placeholder="Cerca cliente, telefono, zona, comune..." class="w-full bg-slate-800 border border-slate-700/70 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-500">
+      <div id="filter-controls" class="space-y-2">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+          <div class="relative md:col-span-2">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-[#5a808a]"></i>
+            <input type="text" id="search-input" oninput="renderClients()" placeholder="Cerca cliente, telefono, zona, indirizzo..." class="w-full bg-white border border-[#cbe2de] rounded-xl pl-9 pr-4 py-2 text-sm text-[#0f3b47] placeholder-[#6c8f98] focus:outline-none focus:border-[#2eb086]">
+          </div>
+
+          <div>
+            <select id="filter-status" onchange="renderClients()" aria-label="Filtra per esito" class="w-full bg-white border border-[#cbe2de] rounded-xl px-3 py-2 text-sm text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
+              <option value="ALL">Tutti gli Esiti</option>
+              <option value="In corso">In corso</option>
+              <option value="Trattativa">Trattativa</option>
+              <option value="Accettato">Accettato (Chiuso)</option>
+              <option value="Perso">Perso</option>
+            </select>
+          </div>
+
+          <div>
+            <select id="filter-role" onchange="renderClients()" aria-label="Filtra per ruolo" class="w-full bg-white border border-[#cbe2de] rounded-xl px-3 py-2 text-sm text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
+              <option value="ALL">Tutti i Ruoli</option>
+              <option value="Acquirente">Acquirente</option>
+              <option value="Venditore">Venditore</option>
+              <option value="Inquilino">Inquilino</option>
+              <option value="Locatore">Locatore (Proprietario)</option>
+            </select>
+          </div>
+
+          <div>
+            <select id="sort-select" onchange="renderClients()" aria-label="Ordina clienti" class="w-full bg-white border border-[#cbe2de] rounded-xl px-3 py-2 text-sm text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
+              <option value="default">Ordine predefinito</option>
+              <option value="name-asc">Nome (A-Z)</option>
+              <option value="price-desc">Prezzo (Decrescente)</option>
+              <option value="price-asc">Prezzo (Crescente)</option>
+              <option value="reminder-asc">Prossimo Richiamo</option>
+            </select>
+          </div>
         </div>
 
-        <div>
-          <select id="filter-status" onchange="renderClients()" class="w-full bg-slate-800 border border-slate-700/70 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
-            <option value="ALL">Tutti gli Esiti</option>
-            <option value="In corso">In corso</option>
-            <option value="Trattativa">Trattativa</option>
-            <option value="Accettato">Accettato (Chiuso)</option>
-            <option value="Perso">Perso</option>
-          </select>
-        </div>
-
-        <div>
-          <select id="filter-role" onchange="renderClients()" class="w-full bg-slate-800 border border-slate-700/70 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
-            <option value="ALL">Tutti i Ruoli</option>
-            <option value="Acquirente">Acquirente</option>
-            <option value="Venditore">Venditore</option>
-            <option value="Inquilino">Inquilino</option>
-            <option value="Locatore">Locatore (Proprietario)</option>
-          </select>
+        <div class="flex items-center justify-between text-xs text-[#4a707a] px-1">
+          <span id="results-count">0 clienti</span>
+          <button type="button" id="reset-filters-btn" onclick="clearFilters()" class="hidden text-[#0e4d5f] hover:text-[#2eb086] font-semibold underline">
+            Azzera filtri
+          </button>
         </div>
       </div>
     </section>
 
     <!-- CONTENT VIEWS -->
-    
+
     <!-- VIEW 1: CLIENT CARDS LIST -->
     <section id="view-clients" class="space-y-4">
       <div id="clients-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Rendered client cards -->
       </div>
-      <div id="empty-state" class="hidden text-center py-12 border-2 border-dashed border-slate-800 rounded-3xl space-y-3">
-        <i data-lucide="folder-open" class="w-12 h-12 text-slate-600 mx-auto"></i>
-        <h3 class="text-base font-semibold text-slate-300">Nessun cliente presente o trovato</h3>
-        <p class="text-xs text-slate-500 max-w-sm mx-auto">Puoi aggiungere il tuo primo cliente oppure caricare 50 schede demo di prova con un clic.</p>
-        <div class="flex justify-center gap-2 pt-2">
-          <button onclick="load50DemoClients()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Carica 50 Clienti Demo</button>
-          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold">+ Nuovo Cliente</button>
+      <div id="empty-state" class="hidden text-center py-12 border-2 border-dashed border-[#cbe2de] bg-white/70 rounded-3xl space-y-3">
+        <i data-lucide="folder-open" class="w-12 h-12 text-[#8bb3bd] mx-auto"></i>
+        <h3 class="text-base font-semibold text-[#0e4d5f]">Nessun cliente presente o trovato</h3>
+        <p class="text-xs text-[#5a808a] max-w-sm mx-auto">Modifica i filtri di ricerca, aggiungi un nuovo cliente oppure carica 50 schede demo di prova.</p>
+        <div class="flex flex-wrap justify-center gap-2 pt-2">
+          <button type="button" onclick="clearFilters()" class="px-4 py-2 rounded-xl bg-white border border-[#cbe2de] hover:bg-[#f0f7f6] text-[#0e4d5f] text-xs font-semibold">Azzera Filtri</button>
+          <button type="button" onclick="load50DemoClients()" class="px-4 py-2 rounded-xl bg-[#0e4d5f] hover:bg-[#0a3c4a] text-white text-xs font-semibold">Carica 50 Clienti Demo</button>
+          <button type="button" onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-[#2eb086] hover:bg-[#249470] text-white text-xs font-semibold">+ Nuovo Cliente</button>
         </div>
       </div>
     </section>
 
     <!-- VIEW 2: REMINDERS & FOLLOW-UPS -->
     <section id="view-reminders" class="hidden space-y-4">
-      <div class="bg-indigo-950/40 border border-indigo-500/20 p-4 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <div class="bg-gradient-to-r from-[#0e4d5f] to-[#1a7a78] border border-[#0e4d5f] p-4 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-sm">
         <div>
-          <h2 class="font-bold text-slate-100 flex items-center gap-2">
-            <i data-lucide="bell" class="w-5 h-5 text-indigo-400"></i> Agenda Richiami & Appuntamenti
+          <h2 class="font-bold text-white flex items-center gap-2">
+            <i data-lucide="bell" class="w-5 h-5 text-[#67e8f9]"></i> Agenda Richiami & Appuntamenti
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">I clienti con data di promemoria in scadenza oggi o arretrati.</p>
+          <p class="text-xs text-[#cbeee4] mt-0.5">I clienti con data di promemoria in scadenza oggi o arretrati.</p>
         </div>
-        <button onclick="requestNotificationPermission()" class="px-3 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 text-xs border border-indigo-500/40 font-medium transition">
+        <button type="button" onclick="requestNotificationPermission()" class="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs border border-white/25 font-medium transition">
           Abilita Notifiche App
         </button>
       </div>
@@ -244,22 +277,22 @@
 
     <!-- VIEW 3: SMART MATCHING TOOL (Acquirenti vs Immobili) -->
     <section id="view-matching" class="hidden space-y-4">
-      <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-2xl space-y-3">
-        <h2 class="font-bold text-slate-100 flex items-center gap-2">
-          <i data-lucide="git-compare" class="w-5 h-5 text-blue-400"></i> Incrocio Automatico Domanda / Offerta
+      <div class="bg-white border border-[#cbe2de] p-4 rounded-2xl space-y-3 shadow-sm">
+        <h2 class="font-bold text-[#0e4d5f] flex items-center gap-2">
+          <i data-lucide="git-compare" class="w-5 h-5 text-[#2eb086]"></i> Incrocio Automatico Domanda / Offerta
         </h2>
-        <p class="text-xs text-slate-400">Seleziona un immobile (Venditore/Locatore) per incrociare gli Acquirenti/Inquilini compatibili per Zona, Tipologia e Budget.</p>
-        
+        <p class="text-xs text-[#4a707a]">Seleziona un immobile (Venditore/Locatore) per incrociare gli Acquirenti/Inquilini compatibili per Zona, Tipologia e Budget.</p>
+
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Seleziona Immobile in Portafoglio:</label>
-          <select id="matching-property-select" onchange="performMatching()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500">
-            <option value="">-- Seleziona un Immobile in Vendita/Affitta --</option>
+          <label for="matching-property-select" class="block text-xs font-semibold text-[#0e4d5f] mb-1">Seleziona Immobile in Portafoglio:</label>
+          <select id="matching-property-select" onchange="performMatching()" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-sm text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
+            <option value="">-- Seleziona un Immobile in Vendita/Affitto --</option>
           </select>
         </div>
       </div>
 
       <div id="matching-results" class="space-y-3">
-        <div class="text-center py-8 text-slate-500 text-sm">
+        <div class="text-center py-8 text-[#5a808a] text-sm bg-white/70 border border-[#cbe2de] rounded-2xl">
           Seleziona un immobile dal menu per calcolare le corrispondenze con le richieste degli acquirenti.
         </div>
       </div>
@@ -268,36 +301,37 @@
   </main>
 
   <!-- MOBILE BOTTOM NAVBAR -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-800/95 backdrop-blur border-t border-slate-700/60 px-2 py-1.5 flex justify-around items-center">
-    <button onclick="switchTab('all')" id="nav-mob-all" class="flex flex-col items-center p-2 text-blue-400">
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-[#cbe2de] px-2 py-1.5 flex justify-around items-center shadow-lg">
+    <button type="button" onclick="switchTab('all')" id="nav-mob-all" class="relative flex flex-col items-center p-2 text-[#0e4d5f]">
       <i data-lucide="users" class="w-5 h-5"></i>
       <span class="text-[10px] mt-1 font-medium">Clienti</span>
     </button>
-    <button onclick="switchTab('reminders')" id="nav-mob-reminders" class="flex flex-col items-center p-2 text-slate-400 relative">
+    <button type="button" onclick="switchTab('reminders')" id="nav-mob-reminders" class="relative flex flex-col items-center p-2 text-[#6c8f98]">
       <i data-lucide="bell" class="w-5 h-5"></i>
       <span class="text-[10px] mt-1 font-medium">Scadenze</span>
       <span id="badge-mob-reminders" class="hidden absolute top-1 right-2 w-2 h-2 rounded-full bg-rose-500"></span>
     </button>
-    <button onclick="switchTab('matching')" id="nav-mob-matching" class="flex flex-col items-center p-2 text-slate-400">
+    <button type="button" onclick="switchTab('matching')" id="nav-mob-matching" class="relative flex flex-col items-center p-2 text-[#6c8f98]">
       <i data-lucide="git-compare" class="w-5 h-5"></i>
       <span class="text-[10px] mt-1 font-medium">Matching</span>
     </button>
-    <button onclick="openClientModal()" class="flex flex-col items-center p-2 text-emerald-400">
+    <button type="button" onclick="openClientModal()" class="relative flex flex-col items-center p-2 text-[#2eb086]">
       <i data-lucide="plus-circle" class="w-5 h-5"></i>
       <span class="text-[10px] mt-1 font-medium">Nuovo</span>
     </button>
   </nav>
 
   <!-- CLIENT FORM MODAL (ADD / EDIT) -->
-  <div id="client-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-    <div class="bg-slate-800 border border-slate-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
-      
+  <div id="client-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text" class="fixed inset-0 z-50 bg-[#092b35]/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white border border-[#cbe2de] w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+
       <!-- Modal Header -->
-      <div class="px-6 py-4 border-b border-slate-700/60 flex items-center justify-between bg-slate-800/80 sticky top-0 z-10">
-        <h3 id="modal-title" class="text-base font-bold text-white flex items-center gap-2">
-          <i data-lucide="user-plus" class="w-5 h-5 text-blue-400"></i> Nuovo Cliente Immobiliare
+      <div class="px-6 py-4 border-b border-[#e1f0ed] flex items-center justify-between bg-[#f4faf9] sticky top-0 z-10">
+        <h3 id="modal-title" class="text-base font-bold text-[#0e4d5f] flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-5 h-5 text-[#2eb086]"></i>
+          <span id="modal-title-text">Nuovo Cliente Immobiliare</span>
         </h3>
-        <button onclick="closeClientModal()" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700">
+        <button type="button" onclick="closeClientModal()" aria-label="Chiudi" class="p-1 rounded-lg text-[#5a808a] hover:text-[#0e4d5f] hover:bg-[#e1f0ed]">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -308,23 +342,23 @@
 
         <!-- SECTION 1: ANAGRAFICA CLIENTE -->
         <div class="space-y-3">
-          <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider">1. Anagrafica & Contatti</h4>
+          <h4 class="text-xs font-semibold text-[#2eb086] uppercase tracking-wider">1. Anagrafica & Contatti</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Nome e Cognome *</label>
-              <input type="text" id="field-name" required placeholder="Es. Marco Rossi" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-name" class="block text-xs text-[#3b5e68] mb-1">Nome e Cognome *</label>
+              <input type="text" id="field-name" required placeholder="Es. Marco Rossi" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Telefono / Cellulare *</label>
-              <input type="tel" id="field-phone" required placeholder="Es. 3391234567" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-phone" class="block text-xs text-[#3b5e68] mb-1">Telefono / Cellulare *</label>
+              <input type="tel" id="field-phone" required placeholder="Es. 3391234567" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Email</label>
-              <input type="email" id="field-email" placeholder="m.rossi@email.it" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-email" class="block text-xs text-[#3b5e68] mb-1">Email</label>
+              <input type="email" id="field-email" placeholder="m.rossi@email.it" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Ruolo Cliente *</label>
-              <select id="field-role" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-role" class="block text-xs text-[#3b5e68] mb-1">Ruolo Cliente *</label>
+              <select id="field-role" required class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
                 <option value="Acquirente">Acquirente (Cerca da comprare)</option>
                 <option value="Venditore">Venditore (Proprietario)</option>
                 <option value="Inquilino">Inquilino (Cerca in affitto)</option>
@@ -334,15 +368,15 @@
           </div>
         </div>
 
-        <hr class="border-slate-700/50">
+        <hr class="border-[#e1f0ed]">
 
         <!-- SECTION 2: DATI IMMOBILE / RICHIESTA -->
         <div class="space-y-3">
-          <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider">2. Immobile / Parametri Ricerca</h4>
+          <h4 class="text-xs font-semibold text-[#2eb086] uppercase tracking-wider">2. Immobile / Parametri Ricerca</h4>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Tipologia Immobile</label>
-              <select id="field-propertyType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-propertyType" class="block text-xs text-[#3b5e68] mb-1">Tipologia Immobile</label>
+              <select id="field-propertyType" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
                 <option value="Appartamento">Appartamento</option>
                 <option value="Attico">Attico / Mansarda</option>
                 <option value="Villa">Villa / Villetta</option>
@@ -352,65 +386,65 @@
               </select>
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Zona / Quartiere</label>
-              <input type="text" id="field-zone" placeholder="Es. Centro, Monza, Navigli..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-zone" class="block text-xs text-[#3b5e68] mb-1">Zona / Quartiere</label>
+              <input type="text" id="field-zone" placeholder="Es. Centro, Monza, Navigli..." class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Prezzo / Budget (€)</label>
-              <input type="number" id="field-price" placeholder="250000" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-price" class="block text-xs text-[#3b5e68] mb-1">Prezzo / Budget (€)</label>
+              <input type="number" min="0" id="field-price" placeholder="250000" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Superficie (m²)</label>
-              <input type="number" id="field-sqm" placeholder="95" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-sqm" class="block text-xs text-[#3b5e68] mb-1">Superficie (m²)</label>
+              <input type="number" min="0" id="field-sqm" placeholder="95" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Vani</label>
-              <input type="text" id="field-rooms" placeholder="3 locali" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-rooms" class="block text-xs text-[#3b5e68] mb-1">Vani</label>
+              <input type="text" id="field-rooms" placeholder="3 locali" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Piano</label>
-              <input type="text" id="field-floor" placeholder="2° piano" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-floor" class="block text-xs text-[#3b5e68] mb-1">Piano</label>
+              <input type="text" id="field-floor" placeholder="2° piano" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Spese Cond. (€/mese)</label>
-              <input type="number" id="field-condoFees" placeholder="120" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-condoFees" class="block text-xs text-[#3b5e68] mb-1">Spese Cond. (€/mese)</label>
+              <input type="number" min="0" id="field-condoFees" placeholder="120" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs text-slate-300 mb-1">Indirizzo Esatto (Per Google Maps)</label>
-            <input type="text" id="field-address" placeholder="Via Roma 15, Milano" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+            <label for="field-address" class="block text-xs text-[#3b5e68] mb-1">Indirizzo Esatto (Per Google Maps)</label>
+            <input type="text" id="field-address" placeholder="Via Roma 15, Milano" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
           </div>
 
           <!-- Features Checkboxes -->
           <div class="flex flex-wrap gap-4 text-xs pt-1">
             <label class="flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="field-hasElevator" class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0">
-              <span class="text-slate-300">Ascensore</span>
+              <input type="checkbox" id="field-hasElevator" class="rounded bg-[#f4faf9] border-[#cbe2de] text-[#2eb086] focus:ring-0">
+              <span class="text-[#3b5e68]">Ascensore</span>
             </label>
             <label class="flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="field-hasBalcony" class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0">
-              <span class="text-slate-300">Balcone / Terrazzo</span>
+              <input type="checkbox" id="field-hasBalcony" class="rounded bg-[#f4faf9] border-[#cbe2de] text-[#2eb086] focus:ring-0">
+              <span class="text-[#3b5e68]">Balcone / Terrazzo</span>
             </label>
             <label class="flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="field-hasGarage" class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0">
-              <span class="text-slate-300">Garage / Posto Auto</span>
+              <input type="checkbox" id="field-hasGarage" class="rounded bg-[#f4faf9] border-[#cbe2de] text-[#2eb086] focus:ring-0">
+              <span class="text-[#3b5e68]">Garage / Posto Auto</span>
             </label>
           </div>
         </div>
 
-        <hr class="border-slate-700/50">
+        <hr class="border-[#e1f0ed]">
 
         <!-- SECTION 3: TRATTATIVA & PROMEMORIA -->
         <div class="space-y-3">
-          <h4 class="text-xs font-semibold text-blue-400 uppercase tracking-wider">3. Stato Trattativa & Promemoria</h4>
+          <h4 class="text-xs font-semibold text-[#2eb086] uppercase tracking-wider">3. Stato Trattativa & Promemoria</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Esito / Stato *</label>
-              <select id="field-status" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-status" class="block text-xs text-[#3b5e68] mb-1">Esito / Stato *</label>
+              <select id="field-status" required class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
                 <option value="In corso">In corso (Primo contatto / Visita)</option>
                 <option value="Trattativa">Trattativa (Proposta fatta)</option>
                 <option value="Accettato">Accettato (Rogito / Chiuso positivo)</option>
@@ -418,31 +452,34 @@
               </select>
             </div>
             <div>
-              <label class="block text-xs text-slate-300 mb-1">Data & Ora Prossimo Richiamo</label>
-              <input type="datetime-local" id="field-reminderDate" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+              <label for="field-reminderDate" class="block text-xs text-[#3b5e68] mb-1">Data & Ora Prossimo Richiamo</label>
+              <input type="datetime-local" id="field-reminderDate" class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl px-3 py-2 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs text-slate-300 mb-1">Note & Osservazioni Trattativa</label>
-            <textarea id="field-notes" rows="3" placeholder="Esigenze cliente, esito visite, trattabilità prezzo..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500"></textarea>
+            <label for="field-notes" class="block text-xs text-[#3b5e68] mb-1">Note & Osservazioni Trattativa</label>
+            <textarea id="field-notes" rows="3" placeholder="Esigenze cliente, esito visite, trattabilità prezzo..." class="w-full bg-[#f4faf9] border border-[#cbe2de] rounded-xl p-3 text-[#0f3b47] focus:outline-none focus:border-[#2eb086]"></textarea>
           </div>
 
           <!-- Photo Upload Base64 -->
           <div>
-            <label class="block text-xs text-slate-300 mb-1">Foto / Planimetria Immobile (Opzionale)</label>
-            <input type="file" id="field-photoFile" accept="image/*" onchange="handlePhotoUpload(event)" class="w-full text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-700 file:text-slate-200 hover:file:bg-slate-600">
+            <label for="field-photoFile" class="block text-xs text-[#3b5e68] mb-1">Foto / Planimetria Immobile (Opzionale)</label>
+            <input type="file" id="field-photoFile" accept="image/*" onchange="handlePhotoUpload(event)" class="w-full text-xs text-[#4a707a] file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#eef6f5] file:text-[#0e4d5f] hover:file:bg-[#dff0ed]">
             <input type="hidden" id="field-photoBase64">
-            <div id="photo-preview-container" class="mt-2 hidden">
-              <img id="photo-preview" src="" alt="Anteprima Immobile" class="w-24 h-24 object-cover rounded-xl border border-slate-700">
+            <div id="photo-preview-container" class="mt-2 hidden flex items-center gap-3">
+              <img id="photo-preview" src="" alt="Anteprima Immobile" class="w-24 h-24 object-cover rounded-xl border border-[#cbe2de]">
+              <button type="button" onclick="removePhoto()" class="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-medium">
+                Rimuovi foto
+              </button>
             </div>
           </div>
         </div>
 
         <!-- Submit Buttons -->
-        <div class="pt-4 border-t border-slate-700 flex justify-end space-x-2">
-          <button type="button" onclick="closeClientModal()" class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs font-medium">Annulla</button>
-          <button type="submit" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg shadow-blue-600/30">Salva Scheda Cliente</button>
+        <div class="pt-4 border-t border-[#e1f0ed] flex justify-end space-x-2">
+          <button type="button" onclick="closeClientModal()" class="px-4 py-2 rounded-xl bg-[#eef6f5] hover:bg-[#dceceb] text-[#3b5e68] text-xs font-medium">Annulla</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-gradient-to-r from-[#0e4d5f] to-[#2eb086] hover:opacity-95 text-white text-xs font-semibold shadow-lg shadow-[#2eb086]/25">Salva Scheda Cliente</button>
         </div>
       </form>
 
@@ -450,36 +487,38 @@
   </div>
 
   <!-- EXPORT / IMPORT BACKUP MODAL -->
-  <div id="export-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-slate-800 border border-slate-700 w-full max-w-md rounded-3xl p-6 space-y-4 shadow-2xl">
+  <div id="export-modal" role="dialog" aria-modal="true" aria-labelledby="export-modal-title" class="fixed inset-0 z-50 bg-[#092b35]/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-[#cbe2de] w-full max-w-md rounded-3xl p-6 space-y-4 shadow-2xl">
       <div class="flex justify-between items-center">
-        <h3 class="font-bold text-white flex items-center gap-2">
-          <i data-lucide="database" class="w-5 h-5 text-emerald-400"></i> Backup & Esportazione
+        <h3 id="export-modal-title" class="font-bold text-[#0e4d5f] flex items-center gap-2">
+          <i data-lucide="database" class="w-5 h-5 text-[#2eb086]"></i> Backup & Esportazione
         </h3>
-        <button onclick="closeExportModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+        <button type="button" onclick="closeExportModal()" aria-label="Chiudi" class="text-[#5a808a] hover:text-[#0e4d5f]"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
 
-      <p class="text-xs text-slate-400">Esporta i tuoi clienti per report d'agenzia o salva un backup di sicurezza.</p>
+      <p class="text-xs text-[#4a707a]">Esporta i tuoi clienti per report d'agenzia o salva un backup di sicurezza.</p>
 
       <div class="space-y-2">
-        <button onclick="exportToCSV()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-200 text-xs font-medium transition">
-          <span class="flex items-center gap-2"><i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-400"></i> Esporta Foglio Excel (.CSV)</span>
-          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+        <button type="button" onclick="exportToCSV()" class="w-full flex items-center justify-between p-3 rounded-xl bg-[#f4faf9] hover:bg-[#e4f3f0] text-[#0e4d5f] border border-[#cbe2de] text-xs font-medium transition">
+          <span class="flex items-center gap-2"><i data-lucide="file-spreadsheet" class="w-4 h-4 text-[#2eb086]"></i> Esporta Foglio Excel (.CSV)</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-[#5a808a]"></i>
         </button>
 
-        <button onclick="exportToJSON()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-200 text-xs font-medium transition">
-          <span class="flex items-center gap-2"><i data-lucide="file-json" class="w-4 h-4 text-blue-400"></i> Scarica Backup Completo (.JSON)</span>
-          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+        <button type="button" onclick="exportToJSON()" class="w-full flex items-center justify-between p-3 rounded-xl bg-[#f4faf9] hover:bg-[#e4f3f0] text-[#0e4d5f] border border-[#cbe2de] text-xs font-medium transition">
+          <span class="flex items-center gap-2"><i data-lucide="file-json" class="w-4 h-4 text-[#0e4d5f]"></i> Scarica Backup Completo (.JSON)</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-[#5a808a]"></i>
         </button>
 
         <div class="pt-2">
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Ripristina Backup (.JSON):</label>
-          <input type="file" id="import-file" accept=".json" onchange="importJSONBackup(event)" class="w-full text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:bg-slate-700 file:text-slate-200">
+          <label for="import-file" class="block text-xs font-semibold text-[#0e4d5f] mb-1">Ripristina Backup (.JSON):</label>
+          <input type="file" id="import-file" accept=".json" onchange="importJSONBackup(event)" class="w-full text-xs text-[#4a707a] file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#eef6f5] file:text-[#0e4d5f]">
         </div>
       </div>
     </div>
   </div>
 
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-container" class="fixed bottom-20 md:bottom-5 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- LOGIC & JAVASCRIPT -->
   <script type="text/javascript">
@@ -507,11 +546,25 @@
           (typeof c.photoBase64 === 'string' && /^data:image\/(png|jpeg|jpg|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(c.photoBase64)));
     }
 
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const colors = type === 'error'
+        ? 'bg-rose-600 text-white border-rose-700'
+        : 'bg-[#0e4d5f] text-white border-[#2eb086]';
+      toast.className = `pointer-events-auto px-4 py-2.5 rounded-xl border shadow-lg text-xs font-medium transition-all duration-300 ${colors}`;
+      toast.innerText = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
 
     // GENERATOR FOR 50 DEMO CLIENTS IN LOMBARDY / MILAN AREA
     function generate50DemoData() {
       const names = [
-        'Marco Rossi', 'Luca Bianchi', 'Giulia Verdi', 'Alessandro Romano', 'Francesca Colombo', 
+        'Marco Rossi', 'Luca Bianchi', 'Giulia Verdi', 'Alessandro Romano', 'Francesca Colombo',
         'Matteo Ricci', 'Elena Marino', 'Davide Greco', 'Chiara Bruno', 'Federico Gallo',
         'Sara Conti', 'Andrea De Luca', 'Valentina Costa', 'Stefano Giordano', 'Silvia Mancini',
         'Raffaele Rizzo', 'Martina Lombardi', 'Lorenzo Moretti', 'Alice Barbieri', 'Gabriele Fontanini',
@@ -525,50 +578,50 @@
 
       const roles = ['Acquirente', 'Venditore', 'Inquilino', 'Locatore'];
       const propertyTypes = ['Appartamento', 'Attico', 'Villa', 'Locale Commerciale', 'Box', 'Terreno'];
-      const zones = ['Centro Storico', 'Navigli', 'Parioli', 'Monza Centro', 'Isola', 'San Siro', 'Porta Nuova', 'Sempione', 'Città Studi', 'Bicocca'];
+      const zones = ['Centro Storico', 'Navigli', 'Brera', 'Monza Centro', 'Isola', 'San Siro', 'Porta Nuova', 'Sempione', 'Città Studi', 'Bicocca'];
       const statuses = ['In corso', 'Trattativa', 'Accettato', 'Perso'];
 
       const demoList = [];
-      const now = new Date().getTime();
+      const now = Date.now();
 
       for (let i = 0; i < 50; i++) {
         const role = roles[i % roles.length];
         const status = statuses[i % statuses.length];
         const zone = zones[i % zones.length];
         const propertyType = propertyTypes[i % propertyTypes.length];
-        const price = (Math.floor(Math.random() * 60) + 10) * 10000; // 100,000 to 700,000
-        const sqm = Math.floor(Math.random() * 120) + 40;
+        const isRental = role === 'Inquilino' || role === 'Locatore';
+        const price = isRental
+          ? (Math.floor(Math.random() * 18) + 7) * 100 // 700 - 2.400 €/mese
+          : (Math.floor(Math.random() * 55) + 12) * 10000; // 120.000 - 660.000 €
+        const sqm = propertyType === 'Box' ? Math.floor(Math.random() * 15) + 14 : Math.floor(Math.random() * 120) + 40;
 
-        // Generate reminder date: some past/today, some future, some empty
         let reminderDate = '';
         if (i % 3 === 0) {
-          // Today or past
-          const offsetHours = (i % 2 === 0 ? -1 : 1) * Math.floor(Math.random() * 12);
+          const offsetHours = (i % 2 === 0 ? -1 : 1) * (Math.floor(Math.random() * 10) + 1);
           reminderDate = localDateTimeValue(new Date(now + offsetHours * 3600000));
         } else if (i % 3 === 1) {
-          // Future
-          reminderDate = localDateTimeValue(new Date(now + (i * 12 * 3600000)));
+          reminderDate = localDateTimeValue(new Date(now + ((i + 1) * 12 * 3600000)));
         }
 
         demoList.push({
           id: `demo-${i + 1}`,
           name: names[i],
-          phone: `33${Math.floor(Math.random() * 8999999 + 1000000)}`,
+          phone: `33${Math.floor(Math.random() * 89999999 + 10000000)}`,
           email: `${names[i].toLowerCase().replace(/[^a-z]/g, '')}@gmail.com`,
-          role: role,
-          propertyType: propertyType,
-          zone: zone,
+          role,
+          propertyType,
+          zone,
           address: `Via ${['Roma', 'Dante', 'Garibaldi', 'Manzoni', 'Verdi'][i % 5]} ${i + 1}, Milano`,
-          price: price,
-          sqm: sqm,
-          rooms: `${Math.floor(Math.random() * 4) + 1} Vani`,
-          floor: `${(i % 5) + 1}° piano`,
+          price,
+          sqm,
+          rooms: propertyType === 'Box' ? '' : `${Math.floor(Math.random() * 4) + 1} Vani`,
+          floor: propertyType === 'Villa' || propertyType === 'Terreno' ? 'Terra' : `${(i % 5) + 1}° piano`,
           condoFees: Math.floor(Math.random() * 150) + 30,
           hasElevator: i % 2 === 0,
           hasBalcony: i % 3 !== 0,
           hasGarage: i % 4 === 0,
-          status: status,
-          reminderDate: reminderDate,
+          status,
+          reminderDate,
           notes: `Cliente ${role} registrato per immobile in zona ${zone}. ${status === 'Trattativa' ? 'Proposta presentata e in fase di valutazione.' : 'Budget verificato.'}`,
           photoBase64: ''
         });
@@ -594,8 +647,7 @@
     });
 
     function registerServiceWorker() {
-      // La registrazione da Blob URL non è supportata in modo affidabile.
-      // Per l'offline serve un file sw.js servito dalla stessa origine.
+      // Per il supporto offline PWA completo servire un file sw.js dalla stessa origine.
     }
 
     function loadClientsFromStorage() {
@@ -633,24 +685,30 @@
       clients = generate50DemoData();
       if (!saveClientsToStorage()) { clients = previous; return; }
       renderApp();
-      alert('Caricate con successo 50 schede clienti demo.');
+      showToast('Caricate 50 schede clienti demo.');
     }
 
     // TABS SYSTEM
     function switchTab(tabName) {
       currentTab = tabName;
+      const viewMap = {
+        all: 'view-clients',
+        reminders: 'view-reminders',
+        matching: 'view-matching'
+      };
+
       ['all', 'reminders', 'matching'].forEach(tab => {
         const btn = document.getElementById(`tab-${tab}`);
         const navMob = document.getElementById(`nav-mob-${tab}`);
-        const view = document.getElementById(`view-${tab}`);
+        const view = document.getElementById(viewMap[tab]);
 
         if (tab === tabName) {
-          if (btn) btn.className = "px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 bg-blue-600 text-white";
-          if (navMob) navMob.className = "flex flex-col items-center p-2 text-blue-400";
+          if (btn) btn.className = 'px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 bg-[#0e4d5f] text-white shadow-sm whitespace-nowrap';
+          if (navMob) navMob.className = 'relative flex flex-col items-center p-2 text-[#0e4d5f] font-semibold';
           if (view) view.classList.remove('hidden');
         } else {
-          if (btn) btn.className = "px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800";
-          if (navMob) navMob.className = "flex flex-col items-center p-2 text-slate-400 relative";
+          if (btn) btn.className = 'px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 text-[#4a707a] hover:text-[#0e4d5f] hover:bg-white whitespace-nowrap';
+          if (navMob) navMob.className = 'relative flex flex-col items-center p-2 text-[#6c8f98]';
           if (view) view.classList.add('hidden');
         }
       });
@@ -673,6 +731,9 @@
       updateMetrics();
       renderClients();
       renderReminders();
+      if (currentTab === 'matching') {
+        performMatching();
+      }
       lucide.createIcons();
     }
 
@@ -681,11 +742,13 @@
       const active = clients.filter(c => c.status === 'In corso' || c.status === 'Trattativa').length;
       const won = clients.filter(c => c.status === 'Accettato').length;
       const lost = clients.filter(c => c.status === 'Perso').length;
-      
+
       const now = new Date();
+      const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
       const remindersDue = clients.filter(c => {
         if (!c.reminderDate) return false;
-        const d = new Date(c.reminderDate); return !Number.isNaN(d.getTime()) && d <= new Date(now.getTime() + 86400000);
+        const d = new Date(c.reminderDate);
+        return !Number.isNaN(d.getTime()) && d <= endOfToday;
       }).length;
 
       const conversionRate = total > 0 ? Math.round((won / total) * 100) : 0;
@@ -709,6 +772,14 @@
       }
     }
 
+    function clearFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('filter-status').value = 'ALL';
+      document.getElementById('filter-role').value = 'ALL';
+      document.getElementById('sort-select').value = 'default';
+      renderClients();
+    }
+
     function renderClients() {
       const grid = document.getElementById('clients-grid');
       const emptyState = document.getElementById('empty-state');
@@ -717,9 +788,13 @@
       const query = document.getElementById('search-input').value.toLowerCase().trim();
       const statusFilter = document.getElementById('filter-status').value;
       const roleFilter = document.getElementById('filter-role').value;
+      const sortBy = document.getElementById('sort-select').value;
 
-      const filtered = clients.filter(c => {
-        const matchesQuery = 
+      const hasFilters = query !== '' || statusFilter !== 'ALL' || roleFilter !== 'ALL' || sortBy !== 'default';
+      document.getElementById('reset-filters-btn').classList.toggle('hidden', !hasFilters);
+
+      let filtered = clients.filter(c => {
+        const matchesQuery =
           String(c.name || '').toLowerCase().includes(query) ||
           String(c.phone || '').toLowerCase().includes(query) ||
           (c.zone && c.zone.toLowerCase().includes(query)) ||
@@ -731,8 +806,28 @@
         return matchesQuery && matchesStatus && matchesRole;
       });
 
+      if (sortBy === 'name-asc') {
+        filtered = [...filtered].sort((a, b) => String(a.name).localeCompare(String(b.name), 'it'));
+      } else if (sortBy === 'price-desc') {
+        filtered = [...filtered].sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0));
+      } else if (sortBy === 'price-asc') {
+        filtered = [...filtered].sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0));
+      } else if (sortBy === 'reminder-asc') {
+        filtered = [...filtered].sort((a, b) => {
+          const da = a.reminderDate ? new Date(a.reminderDate).getTime() : Infinity;
+          const db = b.reminderDate ? new Date(b.reminderDate).getTime() : Infinity;
+          return da - db;
+        });
+      }
+
+      document.getElementById('results-count').innerText =
+        filtered.length === clients.length
+          ? `${clients.length} clienti in archivio`
+          : `Visualizzati ${filtered.length} di ${clients.length} clienti`;
+
       if (filtered.length === 0) {
         emptyState.classList.remove('hidden');
+        lucide.createIcons();
         return;
       } else {
         emptyState.classList.add('hidden');
@@ -740,100 +835,124 @@
 
       filtered.forEach(client => {
         const card = document.createElement('div');
-        card.className = "bg-slate-800/80 border border-slate-700/70 rounded-2xl p-4 flex flex-col justify-between hover:border-slate-600 transition shadow-lg relative overflow-hidden group";
+        card.className = 'bg-white border border-[#cbe2de] rounded-2xl p-4 flex flex-col justify-between hover:border-[#2eb086] hover:shadow-md transition shadow-sm relative overflow-hidden';
 
-        let statusBadgeClass = "bg-slate-700 text-slate-300";
-        if (client.status === 'In corso') statusBadgeClass = "bg-amber-500/20 text-amber-300 border border-amber-500/30";
-        if (client.status === 'Trattativa') statusBadgeClass = "bg-blue-500/20 text-blue-300 border border-blue-500/30";
-        if (client.status === 'Accettato') statusBadgeClass = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
-        if (client.status === 'Perso') statusBadgeClass = "bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        let statusBadgeClass = 'bg-slate-100 text-slate-700 border border-slate-200';
+        if (client.status === 'In corso') statusBadgeClass = 'bg-amber-50 text-amber-700 border border-amber-200';
+        if (client.status === 'Trattativa') statusBadgeClass = 'bg-cyan-50 text-[#0e4d5f] border border-cyan-200';
+        if (client.status === 'Accettato') statusBadgeClass = 'bg-emerald-50 text-[#1d8f6a] border border-emerald-200';
+        if (client.status === 'Perso') statusBadgeClass = 'bg-rose-50 text-rose-700 border border-rose-200';
 
-        let roleBadgeClass = "bg-indigo-500/20 text-indigo-300";
-        if (client.role === 'Venditore') roleBadgeClass = "bg-purple-500/20 text-purple-300";
-        if (client.role === 'Locatore') roleBadgeClass = "bg-amber-500/20 text-amber-300";
+        let roleBadgeClass = 'bg-[#0e4d5f]/10 text-[#0e4d5f] border border-[#0e4d5f]/20';
+        if (client.role === 'Venditore') roleBadgeClass = 'bg-[#2eb086]/15 text-[#177858] border border-[#2eb086]/30';
+        if (client.role === 'Inquilino') roleBadgeClass = 'bg-sky-50 text-sky-700 border border-sky-200';
+        if (client.role === 'Locatore') roleBadgeClass = 'bg-teal-50 text-teal-800 border border-teal-200';
 
-        const formattedPrice = client.price ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(client.price) : 'N/D';
+        const formattedPrice = client.price
+          ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(client.price)
+          : 'N/D';
 
         let reminderTag = '';
         if (client.reminderDate) {
           const rDate = new Date(client.reminderDate);
-          const isOverdue = rDate < new Date();
-          const formattedDate = rDate.toLocaleString('it-IT', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-          reminderTag = `
-            <div class="mt-2 text-xs flex items-center gap-1.5 ${isOverdue ? 'text-rose-400 font-semibold' : 'text-indigo-300'}">
-              <i data-lucide="clock" class="w-3.5 h-3.5"></i> Richiamo: ${formattedDate}
-            </div>
-          `;
+          if (!Number.isNaN(rDate.getTime())) {
+            const isOverdue = rDate < new Date();
+            const formattedDate = rDate.toLocaleString('it-IT', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            reminderTag = `
+              <div class="mt-2 text-xs flex items-center gap-1.5 ${isOverdue ? 'text-rose-600 font-semibold' : 'text-[#0e4d5f] font-medium'}">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i> Richiamo: ${formattedDate}
+              </div>
+            `;
+          }
         }
+
+        const telHref = String(client.phone || '').replace(/[^\d+]/g, '');
+        const hasEmail = Boolean(client.email && client.email.trim());
+        const hasLocation = Boolean((client.address && client.address.trim()) || (client.zone && client.zone.trim()));
 
         card.innerHTML = `
           <div class="space-y-3">
             <div class="flex items-start justify-between gap-2">
               <div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
                   <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${roleBadgeClass}">${escapeHtml(client.role)}</span>
                   <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${statusBadgeClass}">${escapeHtml(client.status)}</span>
                 </div>
-                <h3 class="font-bold text-base text-white mt-1.5">${escapeHtml(client.name)}</h3>
+                <h3 class="font-bold text-base text-[#0e4d5f] mt-1.5">${escapeHtml(client.name)}</h3>
               </div>
-              <div class="flex items-center space-x-1">
-                <button onclick="openClientModal(decodeURIComponent('${encodeArg(client.id)}'))" title="Modifica Scheda" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700">
+              <div class="flex items-center space-x-1 shrink-0">
+                <button type="button" onclick="openClientModal(decodeURIComponent('${encodeArg(client.id)}'))" title="Modifica Scheda" aria-label="Modifica ${escapeHtml(client.name)}" class="p-1.5 rounded-lg text-[#5a808a] hover:text-[#0e4d5f] hover:bg-[#eef6f5] transition">
                   <i data-lucide="edit-3" class="w-4 h-4"></i>
                 </button>
-                <button onclick="deleteClient(decodeURIComponent('${encodeArg(client.id)}'))" title="Elimina" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-700">
+                <button type="button" onclick="deleteClient(decodeURIComponent('${encodeArg(client.id)}'))" title="Elimina" aria-label="Elimina ${escapeHtml(client.name)}" class="p-1.5 rounded-lg text-[#5a808a] hover:text-rose-600 hover:bg-rose-50 transition">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               </div>
             </div>
 
-            <div class="bg-slate-900/60 rounded-xl p-3 space-y-1.5 text-xs text-slate-300 border border-slate-700/40">
-              <div class="flex justify-between font-medium text-slate-100">
+            <div class="bg-[#f4faf9] rounded-xl p-3 space-y-1.5 text-xs text-[#3b5e68] border border-[#dceceb]">
+              <div class="flex justify-between font-medium text-[#0e4d5f]">
                 <span>${escapeHtml(client.propertyType || 'Immobile')} ${client.sqm ? `(${client.sqm} m²)` : ''}</span>
-                <span class="text-emerald-400 font-bold">${formattedPrice}</span>
+                <span class="text-[#1e8e68] font-bold">${formattedPrice}</span>
               </div>
-              <div class="text-slate-400 flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i> ${escapeHtml(client.zone || 'Zona non specificata')} ${client.address ? `- ${escapeHtml(client.address)}` : ''}
+              <div class="text-[#4a707a] flex items-center gap-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#2eb086] shrink-0"></i>
+                <span class="truncate">${escapeHtml(client.zone || 'Zona non specificata')} ${client.address ? `- ${escapeHtml(client.address)}` : ''}</span>
               </div>
-              ${client.rooms ? `<div class="text-slate-400">Vani: ${escapeHtml(client.rooms)} ${client.floor ? `| ${escapeHtml(client.floor)}` : ''}</div>` : ''}
-              
-              <div class="flex items-center gap-3 pt-1 text-[11px] text-slate-400">
-                ${client.hasElevator ? '<span class="flex items-center gap-1"><i data-lucide="arrow-up-down" class="w-3 h-3 text-blue-400"></i> Ascensore</span>' : ''}
-                ${client.hasBalcony ? '<span class="flex items-center gap-1"><i data-lucide="sun" class="w-3 h-3 text-amber-400"></i> Balcone</span>' : ''}
-                ${client.hasGarage ? '<span class="flex items-center gap-1"><i data-lucide="car" class="w-3 h-3 text-emerald-400"></i> Box</span>' : ''}
-              </div>
+              ${client.rooms ? `<div class="text-[#4a707a]">Vani: ${escapeHtml(client.rooms)} ${client.floor ? `| ${escapeHtml(client.floor)}` : ''}</div>` : ''}
+
+              ${(client.hasElevator || client.hasBalcony || client.hasGarage) ? `
+                <div class="flex flex-wrap items-center gap-3 pt-1 text-[11px] text-[#4a707a]">
+                  ${client.hasElevator ? '<span class="flex items-center gap-1"><i data-lucide="arrow-up-down" class="w-3 h-3 text-[#0e4d5f]"></i> Ascensore</span>' : ''}
+                  ${client.hasBalcony ? '<span class="flex items-center gap-1"><i data-lucide="sun" class="w-3 h-3 text-amber-500"></i> Balcone</span>' : ''}
+                  ${client.hasGarage ? '<span class="flex items-center gap-1"><i data-lucide="car" class="w-3 h-3 text-[#2eb086]"></i> Box</span>' : ''}
+                </div>
+              ` : ''}
             </div>
 
             ${client.photoBase64 ? `
               <div class="mt-2">
-                <img src="${client.photoBase64}" alt="Immobile" class="w-full h-28 object-cover rounded-xl border border-slate-700">
+                <img src="${client.photoBase64}" alt="Foto immobile di ${escapeHtml(client.name)}" class="w-full h-28 object-cover rounded-xl border border-[#cbe2de]">
               </div>
             ` : ''}
 
-            ${client.notes ? `<p class="text-xs text-slate-400 italic line-clamp-2">"${escapeHtml(client.notes)}"</p>` : ''}
-            
+            ${client.notes ? `<p class="text-xs text-[#5a808a] italic line-clamp-2">"${escapeHtml(client.notes)}"</p>` : ''}
+
             ${reminderTag}
           </div>
 
-          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-4 gap-1">
-            <a href="tel:${escapeHtml(client.phone)}" title="Chiama Cliente" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-emerald-600/20 text-slate-300 hover:text-emerald-400 transition">
+          <div class="mt-4 pt-3 border-t border-[#e1f0ed] grid grid-cols-4 gap-1.5">
+            <a href="tel:${escapeHtml(telHref)}" title="Chiama Cliente" class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#f4faf9] hover:bg-[#2eb086]/15 text-[#0e4d5f] hover:text-[#177858] transition">
               <i data-lucide="phone" class="w-4 h-4"></i>
-              <span class="text-[10px] mt-0.5">Chiama</span>
+              <span class="text-[10px] mt-0.5 font-medium">Chiama</span>
             </a>
-            
-            <button onclick="sendWhatsApp(decodeURIComponent('${encodeArg(client.phone)}'), decodeURIComponent('${encodeArg(client.name)}'), decodeURIComponent('${encodeArg(client.zone)}'), decodeURIComponent('${encodeArg(client.propertyType)}'))" title="Invia WhatsApp" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-emerald-600/20 text-slate-300 hover:text-emerald-400 transition">
+
+            <button type="button" onclick="sendWhatsApp(decodeURIComponent('${encodeArg(client.phone)}'), decodeURIComponent('${encodeArg(client.name)}'), decodeURIComponent('${encodeArg(client.zone)}'), decodeURIComponent('${encodeArg(client.propertyType)}'))" title="Invia WhatsApp" class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#f4faf9] hover:bg-[#2eb086]/15 text-[#0e4d5f] hover:text-[#177858] transition">
               <i data-lucide="message-square" class="w-4 h-4"></i>
-              <span class="text-[10px] mt-0.5">WhatsApp</span>
+              <span class="text-[10px] mt-0.5 font-medium">WhatsApp</span>
             </button>
 
-            <a href="mailto:${escapeHtml(client.email || '')}" title="Invia Email" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-blue-600/20 text-slate-300 hover:text-blue-400 transition ${!client.email ? 'opacity-40 pointer-events-none' : ''}">
-              <i data-lucide="mail" class="w-4 h-4"></i>
-              <span class="text-[10px] mt-0.5">Email</span>
-            </a>
+            ${hasEmail
+              ? `<a href="mailto:${escapeHtml(client.email.trim())}" title="Invia Email" class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#f4faf9] hover:bg-[#0e4d5f]/10 text-[#0e4d5f] transition">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                  <span class="text-[10px] mt-0.5 font-medium">Email</span>
+                </a>`
+              : `<span aria-disabled="true" title="Email non inserita" class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#f4faf9] text-[#8bb3bd] opacity-50 cursor-not-allowed">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                  <span class="text-[10px] mt-0.5 font-medium">Email</span>
+                </span>`
+            }
 
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((client.address || '') + ' ' + (client.zone || ''))}" target="_blank" rel="noopener noreferrer" title="Apri Mappa" class="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-700/50 hover:bg-indigo-600/20 text-slate-300 hover:text-indigo-400 transition ${!client.address && !client.zone ? 'opacity-40 pointer-events-none' : ''}">
-              <i data-lucide="navigation" class="w-4 h-4"></i>
-              <span class="text-[10px] mt-0.5">Mappa</span>
-            </a>
+            ${hasLocation
+              ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((client.address || '') + ' ' + (client.zone || ''))}" target="_blank" rel="noopener noreferrer" title="Apri Mappa" class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#f4faf9] hover:bg-cyan-50 text-[#0e4d5f] hover:text-[#1ca7b8] transition">
+                  <i data-lucide="navigation" class="w-4 h-4"></i>
+                  <span class="text-[10px] mt-0.5 font-medium">Mappa</span>
+                </a>`
+              : `<span aria-disabled="true" title="Indirizzo non inserito" class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#f4faf9] text-[#8bb3bd] opacity-50 cursor-not-allowed">
+                  <i data-lucide="navigation" class="w-4 h-4"></i>
+                  <span class="text-[10px] mt-0.5 font-medium">Mappa</span>
+                </span>`
+            }
           </div>
         `;
 
@@ -846,11 +965,13 @@
       const container = document.getElementById('reminders-list');
       container.innerHTML = '';
 
-      const clientsWithReminders = clients.filter(c => c.reminderDate && !Number.isNaN(new Date(c.reminderDate).getTime())).sort((a,b) => new Date(a.reminderDate) - new Date(b.reminderDate));
+      const clientsWithReminders = clients
+        .filter(c => c.reminderDate && !Number.isNaN(new Date(c.reminderDate).getTime()))
+        .sort((a, b) => new Date(a.reminderDate) - new Date(b.reminderDate));
 
       if (clientsWithReminders.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-10 text-slate-500 text-sm border-2 border-dashed border-slate-800 rounded-2xl">
+          <div class="text-center py-10 text-[#5a808a] text-sm border-2 border-dashed border-[#cbe2de] bg-white/70 rounded-2xl">
             Nessun promemoria o richiamo programmato.
           </div>
         `;
@@ -861,27 +982,37 @@
         const rDate = new Date(client.reminderDate);
         const isOverdue = rDate < new Date();
         const formattedDate = rDate.toLocaleString('it-IT', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+        const telHref = String(client.phone || '').replace(/[^\d+]/g, '');
 
         const item = document.createElement('div');
-        item.className = `p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${isOverdue ? 'bg-rose-950/20 border-rose-500/40' : 'bg-slate-800/70 border-slate-700/60'}`;
+        item.className = `p-4 rounded-2xl border shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 ${isOverdue ? 'bg-rose-50/70 border-rose-200' : 'bg-white border-[#cbe2de]'}`;
 
         item.innerHTML = `
           <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full ${isOverdue ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-indigo-500/20 text-indigo-300'}">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full ${isOverdue ? 'bg-rose-100 text-rose-700 border border-rose-200' : 'bg-[#2eb086]/15 text-[#177858] border border-[#2eb086]/30'}">
                 ${isOverdue ? 'SCADUTO / DA RICHIAMARE' : 'PROGRAMMATO'}
               </span>
-              <span class="text-xs font-semibold text-slate-300">${formattedDate}</span>
+              <span class="text-xs font-semibold text-[#0e4d5f]">${formattedDate}</span>
             </div>
-            <h4 class="font-bold text-white text-base">${escapeHtml(client.name)} <span class="text-xs font-normal text-slate-400">(${escapeHtml(client.role)} - ${escapeHtml(client.phone)})</span></h4>
-            <p class="text-xs text-slate-300">${escapeHtml(client.propertyType)} a ${escapeHtml(client.zone || 'N/D')} - ${escapeHtml(client.notes || 'Nessuna nota inserita')}</p>
+            <h4 class="font-bold text-[#0e4d5f] text-base">${escapeHtml(client.name)} <span class="text-xs font-normal text-[#4a707a]">(${escapeHtml(client.role)} - ${escapeHtml(client.phone)})</span></h4>
+            <p class="text-xs text-[#3b5e68]">${escapeHtml(client.propertyType)} a ${escapeHtml(client.zone || 'N/D')} - ${escapeHtml(client.notes || 'Nessuna nota inserita')}</p>
           </div>
 
-          <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
-            <button onclick="sendWhatsApp(decodeURIComponent('${encodeArg(client.phone)}'), decodeURIComponent('${encodeArg(client.name)}'), decodeURIComponent('${encodeArg(client.zone)}'), decodeURIComponent('${encodeArg(client.propertyType)}'))" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-medium border border-emerald-500/30 flex items-center gap-1">
+          <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-end">
+            <button type="button" onclick="snoozeReminder(decodeURIComponent('${encodeArg(client.id)}'), 1)" title="Posticipa di 1 giorno" class="px-2.5 py-1.5 rounded-xl bg-[#f4faf9] hover:bg-[#e1f0ed] text-[#0e4d5f] text-xs font-medium border border-[#cbe2de] flex items-center gap-1">
+              <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i> +1g
+            </button>
+            <button type="button" onclick="completeReminder(decodeURIComponent('${encodeArg(client.id)}'))" title="Segna richiamo completato" class="px-2.5 py-1.5 rounded-xl bg-[#f4faf9] hover:bg-[#2eb086]/15 text-[#177858] text-xs font-medium border border-[#cbe2de] flex items-center gap-1">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i> Completa
+            </button>
+            <button type="button" onclick="openClientModal(decodeURIComponent('${encodeArg(client.id)}'))" title="Modifica scheda" class="px-2.5 py-1.5 rounded-xl bg-[#f4faf9] hover:bg-[#e1f0ed] text-[#0e4d5f] text-xs font-medium border border-[#cbe2de] flex items-center gap-1">
+              <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Modifica
+            </button>
+            <button type="button" onclick="sendWhatsApp(decodeURIComponent('${encodeArg(client.phone)}'), decodeURIComponent('${encodeArg(client.name)}'), decodeURIComponent('${encodeArg(client.zone)}'), decodeURIComponent('${encodeArg(client.propertyType)}'))" class="px-3 py-1.5 rounded-xl bg-[#2eb086]/15 hover:bg-[#2eb086]/25 text-[#177858] text-xs font-medium border border-[#2eb086]/30 flex items-center gap-1">
               <i data-lucide="message-square" class="w-3.5 h-3.5"></i> WhatsApp
             </button>
-            <a href="tel:${escapeHtml(client.phone)}" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-1">
+            <a href="tel:${escapeHtml(telHref)}" class="px-3 py-1.5 rounded-xl bg-[#0e4d5f] hover:bg-[#0a3c4a] text-white text-xs font-medium flex items-center gap-1">
               <i data-lucide="phone" class="w-3.5 h-3.5"></i> Chiama Ora
             </a>
           </div>
@@ -891,17 +1022,46 @@
       });
     }
 
+    function completeReminder(id) {
+      const idx = clients.findIndex(c => String(c.id) === String(id));
+      if (idx === -1) return;
+      const previous = clients;
+      clients = clients.map((c, i) => i === idx ? { ...c, reminderDate: '' } : c);
+      if (!saveClientsToStorage()) { clients = previous; return; }
+      renderApp();
+      showToast('Promemoria completato e rimosso dall’agenda.');
+    }
+
+    function snoozeReminder(id, days) {
+      const idx = clients.findIndex(c => String(c.id) === String(id));
+      if (idx === -1) return;
+      const current = new Date(clients[idx].reminderDate || Date.now());
+      const base = Number.isNaN(current.getTime()) ? new Date() : current;
+      const next = new Date(Math.max(base.getTime(), Date.now()) + days * 86400000);
+      const previous = clients;
+      clients = clients.map((c, i) => i === idx ? { ...c, reminderDate: localDateTimeValue(next) } : c);
+      if (!saveClientsToStorage()) { clients = previous; return; }
+      renderApp();
+      showToast(`Richiamo posticipato di ${days} giorno.`);
+    }
+
     function populateMatchingDropdown() {
       const select = document.getElementById('matching-property-select');
-      select.innerHTML = '<option value="">-- Seleziona un Immobile in Portafoglio --</option>';
+      const previousValue = select.value;
+      select.innerHTML = '<option value="">-- Seleziona un Immobile in Vendita/Affitto --</option>';
 
       const sellers = clients.filter(c => c.role === 'Venditore' || c.role === 'Locatore');
       sellers.forEach(s => {
         const opt = document.createElement('option');
-        opt.value = s.id;
-        opt.innerText = `${s.name} - ${s.propertyType} in ${s.zone || 'Zona N/D'} (€ ${s.price ? s.price.toLocaleString('it-IT') : 'N/D'})`;
+        opt.value = String(s.id);
+        const typeLabel = s.role === 'Locatore' ? 'Affitto' : 'Vendita';
+        opt.innerText = `[${typeLabel}] ${s.name} - ${s.propertyType} in ${s.zone || 'Zona N/D'} (€ ${s.price ? Number(s.price).toLocaleString('it-IT') : 'N/D'})`;
         select.appendChild(opt);
       });
+
+      if (previousValue && sellers.some(s => String(s.id) === String(previousValue))) {
+        select.value = previousValue;
+      }
     }
 
     function performMatching() {
@@ -910,39 +1070,46 @@
       resultsContainer.innerHTML = '';
 
       if (!selectedId) {
-        resultsContainer.innerHTML = '<div class="text-center py-6 text-slate-500 text-sm">Seleziona un immobile per calcolare i match.</div>';
+        resultsContainer.innerHTML = '<div class="text-center py-6 text-[#5a808a] text-sm bg-white/70 border border-[#cbe2de] rounded-2xl">Seleziona un immobile per calcolare i match.</div>';
         return;
       }
 
-      const property = clients.find(c => c.id === selectedId);
+      const property = clients.find(c => String(c.id) === String(selectedId));
       if (!property) return;
 
-      const buyers = clients.filter(c => c.role === 'Acquirente' || c.role === 'Inquilino');
+      const targetBuyerRole = property.role === 'Locatore' ? 'Inquilino' : 'Acquirente';
+      const buyers = clients.filter(c => c.role === targetBuyerRole && c.status !== 'Perso');
 
       const matches = buyers.map(buyer => {
         let score = 0;
-        let reasons = [];
+        const reasons = [];
 
-        if (buyer.propertyType === property.propertyType) {
+        if (buyer.propertyType && property.propertyType && buyer.propertyType === property.propertyType) {
           score += 40;
-          reasons.push(`Tipologia coincidente (${escapeHtml(property.propertyType)})`);
+          reasons.push(`Tipologia coincidente (${property.propertyType})`);
         }
-        if (buyer.zone && property.zone && buyer.zone.toLowerCase().includes(property.zone.toLowerCase())) {
+
+        const bZone = (buyer.zone || '').trim().toLowerCase();
+        const pZone = (property.zone || '').trim().toLowerCase();
+        if (bZone && pZone && (bZone.includes(pZone) || pZone.includes(bZone))) {
           score += 40;
-          reasons.push(`Stessa Zona (${escapeHtml(property.zone)})`);
+          reasons.push(`Zona compatibile (${property.zone})`);
         }
-        if (buyer.price && property.price && buyer.price >= property.price) {
+
+        const bPrice = Number(buyer.price) || 0;
+        const pPrice = Number(property.price) || 0;
+        if (bPrice > 0 && pPrice > 0 && bPrice >= pPrice) {
           score += 20;
-          reasons.push(`Budget adeguato (€ ${buyer.price.toLocaleString('it-IT')} >= € ${property.price.toLocaleString('it-IT')})`);
+          reasons.push(`Budget adeguato (€ ${bPrice.toLocaleString('it-IT')} >= € ${pPrice.toLocaleString('it-IT')})`);
         }
 
         return { buyer, score, reasons };
-      }).filter(m => m.score > 0).sort((a,b) => b.score - a.score);
+      }).filter(m => m.score > 0).sort((a, b) => b.score - a.score);
 
       if (matches.length === 0) {
         resultsContainer.innerHTML = `
-          <div class="text-center py-8 text-slate-400 bg-slate-800/40 rounded-2xl border border-slate-700/50">
-            Nessun acquirente attualmente in archivio corrisponde ai parametri di questo immobile.
+          <div class="text-center py-8 text-[#4a707a] bg-white rounded-2xl border border-[#cbe2de] shadow-sm">
+            Nessun ${escapeHtml(targetBuyerRole.toLowerCase())} attivo in archivio corrisponde ai parametri di questo immobile.
           </div>
         `;
         return;
@@ -950,25 +1117,26 @@
 
       matches.forEach(m => {
         const item = document.createElement('div');
-        item.className = "bg-slate-800/80 border border-slate-700/70 p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3";
+        item.className = 'bg-white border border-[#cbe2de] p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm';
 
         item.innerHTML = `
-          <div class="space-y-1">
+          <div class="space-y-1.5">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#2eb086]/15 text-[#177858] border border-[#2eb086]/30">
                 ${m.score}% Compatibilità
               </span>
-              <span class="text-xs font-bold text-white">${escapeHtml(m.buyer.name)}</span>
+              <span class="text-sm font-bold text-[#0e4d5f]">${escapeHtml(m.buyer.name)}</span>
+              <span class="text-[11px] text-[#5a808a]">(${escapeHtml(m.buyer.status)})</span>
             </div>
-            <div class="text-xs text-slate-300">
-              Cerca ${escapeHtml(m.buyer.propertyType)} in ${escapeHtml(m.buyer.zone || 'Zona N/D')} - Budget: € ${m.buyer.price ? m.buyer.price.toLocaleString('it-IT') : 'N/D'}
+            <div class="text-xs text-[#3b5e68]">
+              Cerca ${escapeHtml(m.buyer.propertyType)} in ${escapeHtml(m.buyer.zone || 'Zona N/D')} - Budget: € ${m.buyer.price ? Number(m.buyer.price).toLocaleString('it-IT') : 'N/D'}
             </div>
-            <div class="text-[11px] text-slate-400 flex flex-wrap gap-2 pt-0.5">
-              ${m.reasons.map(r => `<span class="bg-slate-700 px-2 py-0.5 rounded-md">✓ ${escapeHtml(r)}</span>`).join('')}
+            <div class="text-[11px] text-[#0e4d5f] flex flex-wrap gap-2 pt-0.5">
+              ${m.reasons.map(r => `<span class="bg-[#eef6f5] border border-[#cbe2de] px-2 py-0.5 rounded-md">✓ ${escapeHtml(r)}</span>`).join('')}
             </div>
           </div>
 
-          <button onclick="sendWhatsApp(decodeURIComponent('${encodeArg(m.buyer.phone)}'), decodeURIComponent('${encodeArg(m.buyer.name)}'), decodeURIComponent('${encodeArg(property.zone)}'), decodeURIComponent('${encodeArg(property.propertyType)}'))" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium flex items-center gap-1.5 shadow-lg shadow-emerald-600/20">
+          <button type="button" onclick="sendWhatsApp(decodeURIComponent('${encodeArg(m.buyer.phone)}'), decodeURIComponent('${encodeArg(m.buyer.name)}'), decodeURIComponent('${encodeArg(property.zone)}'), decodeURIComponent('${encodeArg(property.propertyType)}'))" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#0e4d5f] to-[#2eb086] hover:opacity-95 text-white text-xs font-medium flex items-center gap-1.5 shadow-md shadow-[#2eb086]/20 shrink-0">
             <i data-lucide="message-square" class="w-4 h-4"></i> Proponi Immobile
           </button>
         `;
@@ -981,9 +1149,14 @@
 
     function sendWhatsApp(phone, name, zone, propType) {
       if (!phone) return;
-      const cleanPhone = phone.replace(/[^0-9]/g, '');
-      const formattedPhone = /^(39|40)/.test(cleanPhone) ? cleanPhone : (cleanPhone.length === 10 ? `39${cleanPhone}` : cleanPhone);
-      
+      let cleanPhone = String(phone).replace(/[^0-9]/g, '');
+      if (cleanPhone.startsWith('00')) {
+        cleanPhone = cleanPhone.slice(2);
+      }
+      const formattedPhone = (cleanPhone.length === 10 && cleanPhone.startsWith('3'))
+        ? `39${cleanPhone}`
+        : cleanPhone;
+
       let msg = `Buongiorno ${name}, sono il suo agente immobiliare. `;
       if (zone && propType) {
         msg += `Ho una novità immobiliare relativa ad un ${propType} in zona ${zone} che potrebbe interessarle molto! Quando possiamo sentirci?`;
@@ -991,20 +1164,19 @@
         msg += `Le scrivo in merito alle sue esigenze immobiliari. Ci sono novità interessanti!`;
       }
 
-      window.open(`https://wa.me/${formattedPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(`https://wa.me/${formattedPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
     }
 
     function openClientModal(id = null) {
       const modal = document.getElementById('client-modal');
       const form = document.getElementById('client-form');
       form.reset();
-      document.getElementById('photo-preview-container').classList.add('hidden');
-      document.getElementById('field-photoBase64').value = '';
+      removePhoto();
 
-      if (id) {
-        const c = clients.find(item => item.id === id);
+      if (id !== null && id !== '') {
+        const c = clients.find(item => String(item.id) === String(id));
         if (c) {
-          document.getElementById('modal-title').innerText = "Modifica Scheda Cliente";
+          document.getElementById('modal-title-text').innerText = 'Modifica Scheda Cliente';
           document.getElementById('field-id').value = c.id;
           document.getElementById('field-name').value = c.name || '';
           document.getElementById('field-phone').value = c.phone || '';
@@ -1012,19 +1184,19 @@
           document.getElementById('field-role').value = c.role || 'Acquirente';
           document.getElementById('field-propertyType').value = c.propertyType || 'Appartamento';
           document.getElementById('field-zone').value = c.zone || '';
-          document.getElementById('field-price').value = c.price || '';
-          document.getElementById('field-sqm').value = c.sqm || '';
+          document.getElementById('field-price').value = c.price > 0 ? c.price : '';
+          document.getElementById('field-sqm').value = c.sqm > 0 ? c.sqm : '';
           document.getElementById('field-rooms').value = c.rooms || '';
           document.getElementById('field-floor').value = c.floor || '';
-          document.getElementById('field-condoFees').value = c.condoFees || '';
+          document.getElementById('field-condoFees').value = c.condoFees > 0 ? c.condoFees : '';
           document.getElementById('field-address').value = c.address || '';
           document.getElementById('field-hasElevator').checked = !!c.hasElevator;
           document.getElementById('field-hasBalcony').checked = !!c.hasBalcony;
           document.getElementById('field-hasGarage').checked = !!c.hasGarage;
           document.getElementById('field-status').value = c.status || 'In corso';
-          document.getElementById('field-reminderDate').value = c.reminderDate || '';
+          document.getElementById('field-reminderDate').value = c.reminderDate ? String(c.reminderDate).slice(0, 16) : '';
           document.getElementById('field-notes').value = c.notes || '';
-          
+
           if (c.photoBase64) {
             document.getElementById('field-photoBase64').value = c.photoBase64;
             document.getElementById('photo-preview').src = c.photoBase64;
@@ -1032,29 +1204,68 @@
           }
         }
       } else {
-        document.getElementById('modal-title').innerText = "Nuovo Cliente Immobiliare";
+        document.getElementById('modal-title-text').innerText = 'Nuovo Cliente Immobiliare';
         document.getElementById('field-id').value = '';
       }
 
       modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
     }
 
     function closeClientModal() {
       document.getElementById('client-modal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function removePhoto() {
+      document.getElementById('field-photoFile').value = '';
+      document.getElementById('field-photoBase64').value = '';
+      document.getElementById('photo-preview').src = '';
+      document.getElementById('photo-preview-container').classList.add('hidden');
     }
 
     function handlePhotoUpload(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
-      if (!file.type.startsWith('image/')) { alert('Seleziona un file immagine valido.'); e.target.value = ''; return; }
-      if (file.size > 5 * 1024 * 1024) { alert('Immagine troppo grande. Dimensione massima: 5 MB.'); e.target.value = ''; return; }
+      if (!file.type.startsWith('image/')) {
+        alert('Seleziona un file immagine valido.');
+        e.target.value = '';
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        alert('Immagine troppo grande. Dimensione massima: 10 MB.');
+        e.target.value = '';
+        return;
+      }
+
       const reader = new FileReader();
       reader.onerror = () => alert('Impossibile leggere il file immagine.');
       reader.onload = evt => {
-        const base64 = evt.target.result;
-        document.getElementById('field-photoBase64').value = base64;
-        document.getElementById('photo-preview').src = base64;
-        document.getElementById('photo-preview-container').classList.remove('hidden');
+        const img = new Image();
+        img.onerror = () => alert('Formato immagine non supportato.');
+        img.onload = () => {
+          const maxDim = 900;
+          let { width, height } = img;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.78);
+          document.getElementById('field-photoBase64').value = compressedBase64;
+          document.getElementById('photo-preview').src = compressedBase64;
+          document.getElementById('photo-preview-container').classList.remove('hidden');
+        };
+        img.src = evt.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -1069,12 +1280,14 @@
       const feesRaw = document.getElementById('field-condoFees').value;
       if (!name || !phone) { alert('Inserisci nome e telefono.'); return; }
       if ([priceRaw, sqmRaw, feesRaw].some(v => v !== '' && (!Number.isFinite(Number(v)) || Number(v) < 0))) {
-        alert('Prezzo, superficie e spese condominiali devono essere numeri validi e non negativi.'); return;
+        alert('Prezzo, superficie e spese condominiali devono essere numeri validi e non negativi.');
+        return;
       }
 
       const clientData = {
-        id: id || (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `client-${Date.now()}-${Math.random().toString(36).slice(2,8)}`),
-        name, phone,
+        id: id || (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `client-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`),
+        name,
+        phone,
         email: document.getElementById('field-email').value.trim(),
         role: document.getElementById('field-role').value,
         propertyType: document.getElementById('field-propertyType').value,
@@ -1096,7 +1309,7 @@
 
       const previous = clients;
       if (id) {
-        const index = clients.findIndex(c => c.id === id);
+        const index = clients.findIndex(c => String(c.id) === String(id));
         if (index === -1) { alert('Scheda non trovata: aggiorna l’archivio e riprova.'); return; }
         clients = [...clients];
         clients[index] = clientData;
@@ -1107,16 +1320,18 @@
       if (!saveClientsToStorage()) { clients = previous; return; }
       closeClientModal();
       renderApp();
+      showToast(id ? 'Scheda cliente aggiornata.' : 'Nuovo cliente aggiunto.');
     }
 
     function deleteClient(id) {
-      const client = clients.find(c => c.id === id);
+      const client = clients.find(c => String(c.id) === String(id));
       if (!client) { alert('Cliente non trovato.'); return; }
       if (!confirm(`Eliminare definitivamente la scheda di ${client.name}?`)) return;
       const previous = clients;
-      clients = clients.filter(c => c.id !== id);
+      clients = clients.filter(c => String(c.id) !== String(id));
       if (!saveClientsToStorage()) { clients = previous; return; }
       renderApp();
+      showToast('Scheda cliente eliminata.');
     }
 
     async function requestNotificationPermission() {
@@ -1124,12 +1339,14 @@
       if (!window.isSecureContext) { alert('Le notifiche richiedono HTTPS o localhost.'); return; }
       try {
         const permission = Notification.permission === 'default'
-          ? await Notification.requestPermission() : Notification.permission;
+          ? await Notification.requestPermission()
+          : Notification.permission;
         if (permission === 'granted') {
-          new Notification('Agenda Immobiliare Pro', {
+          new Notification('ImmoPulse CRM', {
             body: 'Notifiche attivate. I promemoria vengono mostrati nell’agenda.',
             icon: 'https://img.icons8.com/isometric-line/192/real-estate.png'
           });
+          showToast('Notifiche attivate.');
         } else if (permission === 'denied') {
           alert('Notifiche bloccate. Puoi abilitarle dalle impostazioni del browser.');
         } else {
@@ -1143,21 +1360,26 @@
 
     function openExportModal() {
       document.getElementById('export-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
     }
 
     function closeExportModal() {
       document.getElementById('export-modal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
     }
 
     function exportToCSV() {
       if (clients.length === 0) return alert('Nessun dato da esportare.');
-      const headers = ['Nome','Telefono','Email','Ruolo','Tipologia','Zona','Indirizzo','Prezzo','Mq','Esito','Promemoria','Note'];
+      const headers = ['Nome', 'Telefono', 'Email', 'Ruolo', 'Tipologia', 'Zona', 'Indirizzo', 'Prezzo', 'Mq', 'Vani', 'Piano', 'SpeseCond', 'Esito', 'Promemoria', 'Note'];
       const cell = value => `"${String(value ?? '').replace(/"/g, '""')}"`;
       const rows = clients.map(c => [
-        c.name,c.phone,c.email,c.role,c.propertyType,c.zone,c.address,c.price || 0,c.sqm || 0,c.status,c.reminderDate,c.notes
+        c.name, c.phone, c.email, c.role, c.propertyType, c.zone, c.address,
+        c.price || 0, c.sqm || 0, c.rooms || '', c.floor || '', c.condoFees || 0,
+        c.status, c.reminderDate, c.notes
       ].map(cell));
       const csv = '\uFEFF' + [headers.map(cell).join(';'), ...rows.map(row => row.join(';'))].join('\r\n');
-      downloadBlob(csv, `Clienti_CRM_Immobiliare_${localDateTimeValue().slice(0,10)}.csv`, 'text/csv;charset=utf-8');
+      downloadBlob(csv, `Clienti_ImmoPulse_${localDateTimeValue().slice(0, 10)}.csv`, 'text/csv;charset=utf-8');
+      showToast('Esportazione CSV completata.');
     }
 
     function downloadBlob(content, filename, mimeType) {
@@ -1173,15 +1395,22 @@
     }
 
     function exportToJSON() {
-      downloadBlob(JSON.stringify(clients, null, 2),
-        `Backup_Agenda_Immobiliare_${localDateTimeValue().slice(0,10)}.json`,
-        'application/json;charset=utf-8');
+      downloadBlob(
+        JSON.stringify(clients, null, 2),
+        `Backup_ImmoPulse_${localDateTimeValue().slice(0, 10)}.json`,
+        'application/json;charset=utf-8'
+      );
+      showToast('Backup JSON scaricato.');
     }
 
     function importJSONBackup(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
-      if (file.size > 20 * 1024 * 1024) { alert('Backup troppo grande (massimo 20 MB).'); e.target.value = ''; return; }
+      if (file.size > 20 * 1024 * 1024) {
+        alert('Backup troppo grande (massimo 20 MB).');
+        e.target.value = '';
+        return;
+      }
       const reader = new FileReader();
       reader.onerror = () => alert('Impossibile leggere il file selezionato.');
       reader.onload = function(evt) {
@@ -1194,11 +1423,13 @@
           if (!saveClientsToStorage()) { clients = previous; return; }
           renderApp();
           closeExportModal();
-          alert('Backup ripristinato con successo.');
+          showToast('Backup ripristinato con successo.');
         } catch (err) {
           console.error('Importazione backup:', err);
           alert('Backup non valido o danneggiato. L’archivio attuale è rimasto invariato.');
-        } finally { e.target.value = ''; }
+        } finally {
+          e.target.value = '';
+        }
       };
       reader.readAsText(file);
     }
